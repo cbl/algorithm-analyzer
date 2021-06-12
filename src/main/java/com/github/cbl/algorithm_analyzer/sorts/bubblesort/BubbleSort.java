@@ -5,6 +5,7 @@ import java.util.StringJoiner;
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
+import com.github.cbl.algorithm_analyzer.util.ArrayPrinter;
 import com.github.cbl.algorithm_analyzer.util.ArrayWriter;
 import com.github.cbl.algorithm_analyzer.util.Comparator;
 
@@ -15,15 +16,8 @@ public class BubbleSort<T extends Comparable<T>> implements Algorithm<Event,Bubb
     public static record PartialStateEvent<T>(T[] array, long comparisons, long writes) implements Event {
         @Override
         public String toString() {
-            final StringJoiner arrSj = new StringJoiner("|", "|", "|");
-            for (T el : array) {
-                arrSj.add(" " + el.toString() + " ");
-            }
-
             final StringJoiner sj = new StringJoiner("\n");
-            sj.add("-".repeat(arrSj.length()));
-            sj.add(arrSj.toString());
-            sj.add("-".repeat(arrSj.length()));
+            sj.add(ArrayPrinter.toString(array));
             sj.add("Comparisons: " + comparisons);
             sj.add("Writes: " + writes);
             

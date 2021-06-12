@@ -8,6 +8,7 @@ public class LogEventVisitor implements EventVisitor {
     @Override
     public void visit(Event e) {
         System.out.println(e);
+        System.out.println();
     }
 
 }
