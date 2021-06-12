@@ -9,8 +9,9 @@ public class ArrayWriter {
     private long snapshot = 0;
 
     public <T> void change(T[] arr, int i, int j) {
-        assert(i < arr.length);
-        assert(j < arr.length);
+        assert(arr != null);
+        assert(i >= 0 && i < arr.length);
+        assert(j >= 0 && j < arr.length);
 
         if (i == j) {
             // TODO: ist das so richtig? Wie ist das genau definiert mit den 'Schreibzugriffen'?
