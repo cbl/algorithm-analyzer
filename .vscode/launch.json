@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<Algorithm-Analyzer>",
+            "request": "launch",
+            "mainClass": "com.github.cbl.algorithm_analyzer.Main",
+            "projectName": "algorithm-analyzer",
+            "shortenCommandLine": "jarmanifest"
+        }
+    ]
+}
