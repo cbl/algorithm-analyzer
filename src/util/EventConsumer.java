@@ -1,5 +1,3 @@
 package util;
 
-public class EventConsumer implements contracts.EventConsumer {
-
-}
+public class EventConsumer implements contracts.EventConsumer {}

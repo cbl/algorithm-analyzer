@@ -1,5 +1,3 @@
 package trees.AvlTree;
 
-public class AvlTree {
-
-}
+public class AvlTree {}

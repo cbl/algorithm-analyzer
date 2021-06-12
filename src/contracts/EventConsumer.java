@@ -1,5 +1,3 @@
 package contracts;
 
-public interface EventConsumer {
-
-}
+public interface EventConsumer {}

@@ -1,5 +1,3 @@
 package trees.AvlTree.Events;
 
-public class TreeState {
-
-}
+public class TreeState {}

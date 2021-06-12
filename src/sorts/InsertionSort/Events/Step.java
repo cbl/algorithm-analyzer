@@ -1,5 +1,3 @@
 package sorts.InsertionSort.Events;
 
-public class Step {
-
-}
+public class Step {}
