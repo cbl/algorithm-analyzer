@@ -1,5 +1,9 @@
 # algorithm-analyzer
 
+## setup
+
+`mvn clean install`
+
 ## run
 
 `mvn exec:java`
