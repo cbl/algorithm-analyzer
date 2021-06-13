@@ -35,7 +35,7 @@ jobs:
                   author_name: ${{ github.event.pusher.name }}
                   author_email: ${{ github.event.pusher.email }}
 
-                  message: 'Apply production build from CI
+                  message: 'Apply fixes from CI
 
 
                       Co-authored-by: github-actions[bot] <action@github.com>'
