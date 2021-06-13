@@ -1,7 +1,7 @@
 package com.github.cbl.algorithm_analyzer.util;
 
-import java.util.StringJoiner;
 import java.util.Collections;
+import java.util.StringJoiner;
 
 /** Utility class for pretty-printing tables */
 public class TablePrinter {
@@ -24,13 +24,18 @@ public class TablePrinter {
             }
         }
 
-        StringJoiner rowSj, tableSj = new StringJoiner("\n" + middleBorder(maxWidth, columnCount) + "\n");
+        StringJoiner rowSj,
+                tableSj = new StringJoiner("\n" + middleBorder(maxWidth, columnCount) + "\n");
 
         for (Object[] row : table) {
             rowSj = new StringJoiner("|", "|", "|");
             for (Object column : row) {
-                rowSj.add(column.toString()
-                        + String.join("", Collections.nCopies(maxWidth - column.toString().length(), " ")));
+                rowSj.add(
+                        column.toString()
+                                + String.join(
+                                        "",
+                                        Collections.nCopies(
+                                                maxWidth - column.toString().length(), " ")));
             }
             tableSj.add(rowSj.toString());
         }

@@ -17,7 +17,7 @@ public class Main {
 
     public static void tiefenSuche() {
         int size = 4;
-        String[] nodeNames = { "A", "B", "C", "D" };
+        String[] nodeNames = {"A", "B", "C", "D"};
         Graph<Integer, boolean[][]> graph = new AdjacentMatrixGraph(size);
 
         graph.setEdge(0, 3);
@@ -35,7 +35,7 @@ public class Main {
     }
 
     public static void bubbleSort() {
-        final Integer[] array = { 6, 5, 4, 3, 2, 1 };
+        final Integer[] array = {6, 5, 4, 3, 2, 1};
 
         final Algorithm<Event, BubbleSort.Data<Integer>> a = new BubbleSort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();

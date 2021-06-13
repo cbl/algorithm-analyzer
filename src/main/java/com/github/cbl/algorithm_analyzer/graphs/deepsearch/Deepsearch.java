@@ -6,15 +6,15 @@ import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 
-import java.util.Arrays;
 import java.util.StringJoiner;
 
 public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
 
-    public static record Data(Graph<Integer, boolean[][]> graph, String[] nodeNames) {
-    };
+    public static record Data(Graph<Integer, boolean[][]> graph, String[] nodeNames) {}
+    ;
 
-    public static record FinalTimesEvent(Data data, int[] discovered, int[] finished) implements Event {
+    public static record FinalTimesEvent(Data data, int[] discovered, int[] finished)
+            implements Event {
         @Override
         public String toString() {
             Object[][] table = new Object[3][];
@@ -33,7 +33,8 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
 
             return TablePrinter.toString(table);
         }
-    };
+    }
+    ;
 
     public static record FinalEdgeTypesEvent(Data data, EdgeType[][] types) implements Event {
         @Override
@@ -43,7 +44,13 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
             for (int u = 0; u < types.length; u++) {
                 for (int j = 0; j < types.length; j++) {
                     if (data.graph().hasEdge(u, j)) {
-                        sj.add("[" + data.nodeNames()[u] + " -> " + data.nodeNames()[j] + "]: " + types[u][j]);
+                        sj.add(
+                                "["
+                                        + data.nodeNames()[u]
+                                        + " -> "
+                                        + data.nodeNames()[j]
+                                        + "]: "
+                                        + types[u][j]);
                     }
                 }
             }
@@ -80,28 +87,40 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
         events.accept(new FinalEdgeTypesEvent(data, types));
     }
 
-    protected EdgeType getEdgeType(int from, int to, Graph<Integer, boolean[][]> graph, int[] discovered,
-            int[] finished, int[] previous) {
+    protected EdgeType getEdgeType(
+            int from,
+            int to,
+            Graph<Integer, boolean[][]> graph,
+            int[] discovered,
+            int[] finished,
+            int[] previous) {
         if (!graph.hasEdge(from, to)) {
             return EdgeType.KeineKante;
         }
 
-        if (discovered[from] < discovered[to] && discovered[to] < finished[to] && finished[to] < finished[from]) {
+        if (discovered[from] < discovered[to]
+                && discovered[to] < finished[to]
+                && finished[to] < finished[from]) {
             return previous[to] == from ? EdgeType.Baumkante : EdgeType.Vorwaertskante;
-        } else if (discovered[to] < finished[to] && finished[to] < discovered[from]
-                && discovered[from] < finished[from])
-            return EdgeType.Querkante;
+        } else if (discovered[to] < finished[to]
+                && finished[to] < discovered[from]
+                && discovered[from] < finished[from]) return EdgeType.Querkante;
 
         return EdgeType.Rueckwaertskante;
     }
 
-    protected int expand(Graph<Integer, boolean[][]> graph, int u, int[] discovered, int[] finished, int[] previous,
-            boolean[] known, int time) {
+    protected int expand(
+            Graph<Integer, boolean[][]> graph,
+            int u,
+            int[] discovered,
+            int[] finished,
+            int[] previous,
+            boolean[] known,
+            int time) {
         known[u] = true;
         discovered[u] = ++time;
         for (int v = 0; v < graph.getVerticeCount(); v++) {
-            if (known[v] || !graph.hasEdge(u, v))
-                continue;
+            if (known[v] || !graph.hasEdge(u, v)) continue;
             previous[v] = u;
             time = this.expand(graph, v, discovered, finished, previous, known, time);
         }
