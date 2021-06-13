@@ -13,72 +13,68 @@ public class TablePrinter {
      * @return a string representing the table
      */
     public static String toString(Object[][] table) {
-        Integer maxWidth = 0, width, columnCount = table[0].length;
+        int[] maxWidths = new int[table[0].length];
+        int width;
 
-        for (Object[] row : table) {
-            for (Object column : row) {
-                width = column.toString().length();
-                if (width > maxWidth) {
-                    maxWidth = width;
+        for (int r = 0; r < table.length; r++) {
+            for (int c = 0; c < table[r].length; c++) {
+                width = table[r][c].toString().length();
+                if ((width + 2) > maxWidths[c]) {
+                    maxWidths[c] = width + 2;
                 }
             }
         }
 
-        StringJoiner rowSj,
-                tableSj = new StringJoiner("\n" + middleBorder(maxWidth, columnCount) + "\n");
+        StringJoiner rowSj, tableSj = new StringJoiner("\n" + middleBorder(maxWidths) + "\n");
 
-        for (Object[] row : table) {
+        for (int r = 0; r < table.length; r++) {
             rowSj = new StringJoiner("|", "|", "|");
-            for (Object column : row) {
-                rowSj.add(
-                        column.toString()
-                                + String.join(
-                                        "",
-                                        Collections.nCopies(
-                                                maxWidth - column.toString().length(), " ")));
+            for (int c = 0; c < table[r].length; c++) {
+                final String s = " " + table[r][c].toString() + " ";
+                rowSj.add(s + String.join("", Collections.nCopies(maxWidths[c] - s.length(), " ")));
             }
             tableSj.add(rowSj.toString());
         }
 
         final StringJoiner sj = new StringJoiner("\n");
-        sj.add(upperBorder(maxWidth, columnCount));
+        sj.add(upperBorder(maxWidths));
         sj.add(tableSj.toString());
-        sj.add(lowerBorder(maxWidth, columnCount));
+        sj.add(lowerBorder(maxWidths));
 
         return sj.toString();
     }
 
-    private static String upperBorder(Integer columnWidth, Integer columnCount) {
+    private static String upperBorder(int[] columnWidths) {
         final StringJoiner sj = new StringJoiner("");
 
-        for (int i = 0; i < columnCount; i++) {
+        for (int i = 0; i < columnWidths.length; i++) {
             sj.add(i == 0 ? "┌" : "┬");
-            sj.add("─".repeat(columnWidth));
-            sj.add(i == columnCount - 1 ? "┐" : "");
+            sj.add("─".repeat(columnWidths[i]));
+            sj.add(i == columnWidths.length - 1 ? "┐" : "");
         }
 
         return sj.toString();
     }
 
-    private static String middleBorder(Integer columnWidth, Integer columnCount) {
+    private static String middleBorder(int[] columnWidths) {
         final StringJoiner sj = new StringJoiner("");
 
-        for (int i = 0; i < columnCount; i++) {
+        for (int i = 0; i < columnWidths.length; i++) {
             sj.add(i == 0 ? "├" : "┼");
-            sj.add("─".repeat(columnWidth));
-            sj.add(i == columnCount - 1 ? "┤" : "");
+            sj.add("─".repeat(columnWidths[i]));
+            sj.add(i == columnWidths.length - 1 ? "┤" : "");
         }
 
         return sj.toString();
     }
 
-    private static String lowerBorder(Integer columnWidth, Integer columnCount) {
+    private static String lowerBorder(int[] columnWidths) {
         final StringJoiner sj = new StringJoiner("");
 
-        for (int i = 0; i < columnCount; i++) {
+        for (int i = 0; i < columnWidths.length; i++) {
             sj.add(i == 0 ? "└" : "┴");
-            sj.add("─".repeat(columnWidth));
-            sj.add(i == columnCount - 1 ? "┘" : "");
+            sj.add("─".repeat(columnWidths[i]));
+            sj.add(i == columnWidths.length - 1 ? "┘" : "");
         }
 
         return sj.toString();
