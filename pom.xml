@@ -10,6 +10,8 @@
 
     <properties>
         <java.version>16</java.version>
+        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
         <mainclass>com.github.cbl.algorithm_analyzer.Main</mainclass>
     </properties>
 
