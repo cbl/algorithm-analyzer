@@ -1,11 +1,11 @@
 package com.github.cbl.algorithm_analyzer.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.EventVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralEventConsumer implements EventConsumer<Event> {
 
@@ -19,7 +19,5 @@ public class GeneralEventConsumer implements EventConsumer<Event> {
     @Override
     public void visitEvents(EventVisitor visitor) {
         events.forEach(e -> e.accept(visitor));
-        
     }
-
 }

@@ -1,10 +1,10 @@
 package com.github.cbl.algorithm_analyzer.util;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class ComparatorTest {
 
@@ -14,7 +14,6 @@ public class ComparatorTest {
         public int compareTo(C o) {
             return o.i - i; // native order reversed
         }
-
     }
 
     @Test
@@ -50,5 +49,4 @@ public class ComparatorTest {
 
         assertEquals(c.getComparisons(), 4, "Calculates overall correctly");
     }
-    
 }

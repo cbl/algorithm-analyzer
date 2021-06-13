@@ -12,9 +12,12 @@ public class ArrayWriterTest {
     @DisplayName("Should throw if array is null")
     public void throwOnNullArray() {
         ArrayWriter w = new ArrayWriter();
-        assertThrows(Error.class, () -> {
-            w.change(null, 0, 0);
-        }, "Throws if array is null");
+        assertThrows(
+                Error.class,
+                () -> {
+                    w.change(null, 0, 0);
+                },
+                "Throws if array is null");
     }
 
     @Test
@@ -23,29 +26,40 @@ public class ArrayWriterTest {
         ArrayWriter w = new ArrayWriter();
         Integer[] arr = {0, 1};
 
-        assertThrows(Error.class, () -> {
-            w.change(arr, 2, 0);
-        }, "Throws if first index is out of bounds");
+        assertThrows(
+                Error.class,
+                () -> {
+                    w.change(arr, 2, 0);
+                },
+                "Throws if first index is out of bounds");
 
-        assertThrows(Error.class, () -> {
-            w.change(arr, -1, 0);
-        }, "Throws if first index is out of bounds");
+        assertThrows(
+                Error.class,
+                () -> {
+                    w.change(arr, -1, 0);
+                },
+                "Throws if first index is out of bounds");
 
-        assertThrows(Error.class, () -> {
-            w.change(arr, 0, 2);
-        }, "Throws if second index is out of bounds");
+        assertThrows(
+                Error.class,
+                () -> {
+                    w.change(arr, 0, 2);
+                },
+                "Throws if second index is out of bounds");
 
-        assertThrows(Error.class, () -> {
-            w.change(arr, 0, -1);
-        }, "Throws if second index is out of bounds");
+        assertThrows(
+                Error.class,
+                () -> {
+                    w.change(arr, 0, -1);
+                },
+                "Throws if second index is out of bounds");
     }
-
 
     @Test
     @DisplayName("Calculaes writes correctly")
     public void calculatesWritesCorrectly() {
         ArrayWriter w = new ArrayWriter();
-        Integer[] arr = { 0, 1, 2, 3 };
+        Integer[] arr = {0, 1, 2, 3};
 
         assertEquals(w.getWrites(), 0);
 
@@ -64,7 +78,7 @@ public class ArrayWriterTest {
     @DisplayName("Handles snapshots correctly")
     public void handlesSnapshotsCorrectly() {
         ArrayWriter w = new ArrayWriter();
-        Integer[] arr = { 0, 1, 2, 3 };
+        Integer[] arr = {0, 1, 2, 3};
 
         w.change(arr, 0, 1);
         assertEquals(w.getWritesSnapshot(), 2, "Calculates first snapshot correctly");

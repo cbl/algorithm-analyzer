@@ -7,10 +7,10 @@ import com.github.cbl.algorithm_analyzer.contracts.Graph;
 
 public class Tiefensuche implements Algorithm<Event, Tiefensuche.Data> {
 
-    public static record Data (Graph<Integer,Void> graph, Integer startNode) {};
+    public static record Data(Graph<Integer, Void> graph, Integer startNode) {}
+    ;
 
     public void run(EventConsumer<Event> logger, Data data) {
         // TODO: implement
     }
-
 }

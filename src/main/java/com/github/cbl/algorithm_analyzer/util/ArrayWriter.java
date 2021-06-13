@@ -1,17 +1,15 @@
 package com.github.cbl.algorithm_analyzer.util;
 
-/**
- * Utility class for changing array field and storing the number of writes
- */
+/** Utility class for changing array field and storing the number of writes */
 public class ArrayWriter {
 
     private long writes = 0;
     private long snapshot = 0;
 
     public <T> void change(T[] arr, int i, int j) {
-        assert(arr != null);
-        assert(i >= 0 && i < arr.length);
-        assert(j >= 0 && j < arr.length);
+        assert (arr != null);
+        assert (i >= 0 && i < arr.length);
+        assert (j >= 0 && j < arr.length);
 
         if (i == j) {
             // TODO: ist das so richtig? Wie ist das genau definiert mit den 'Schreibzugriffen'?
@@ -33,5 +31,4 @@ public class ArrayWriter {
         snapshot = writes;
         return writes - oldSnapshot;
     }
-    
 }

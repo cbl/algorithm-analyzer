@@ -1,17 +1,15 @@
 package com.github.cbl.algorithm_analyzer.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringJoiner;
 
-/**
- * Utility class for pretty-printing arrays
- */
+/** Utility class for pretty-printing arrays */
 public class ArrayPrinter {
 
     /**
      * Pretty-formats an array to a 'list of fields' w/ ASCII symbols
+     *
      * @param arr the array
      * @return a string representing the array
      */
@@ -55,5 +53,4 @@ public class ArrayPrinter {
         }
         return sj.toString();
     }
-    
 }
