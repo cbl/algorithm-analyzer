@@ -19,6 +19,6 @@ Outputs to `target/algorithm-analyzer-x.x.x.jar`
 `mvn test`
 
 ## formatting code
-`/bin/sh format.sh`
+`/bin/sh bin/format.sh`
 
 Calls google-code-formatter locally.
