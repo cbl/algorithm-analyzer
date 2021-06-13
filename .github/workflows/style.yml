@@ -8,8 +8,33 @@ jobs:
     formatting:
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout code
             - uses: actions/checkout@v2 # v2 minimum required
-            - uses: axel-op/googlejavaformat-action@v3
+
+            - name: Setup Java
+            - uses: actions/setup-java@v2
               with:
-                  args: '-a --replace'
-                  commitMessage: 'Fixed styles from CI'
+                  java-version: '16'
+
+            - name: Setup google-java-format
+              run: |
+                  wget https://github.com/google/google-java-format/releases/download/v1.10.0/google-java-format-1.10.0-all-deps.jar
+                  cat env > "GOOGLE_JAVA_FORMATTER_JAR=google-java-format-1.10.0-all-deps.jar"
+
+            - name: Format code
+              run: /bin/sh bin/format.sh
+
+            - name: Commit formatted code
+              uses: EndBug/add-and-commit@v4
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  add: 'src/'
+
+                  author_name: ${{ github.event.pusher.name }}
+                  author_email: ${{ github.event.pusher.email }}
+
+                  message: 'Apply production build from CI
+
+
+                      Co-authored-by: github-actions[bot] <action@github.com>'
