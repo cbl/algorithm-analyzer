@@ -5,8 +5,7 @@ import com.github.cbl.algorithm_analyzer.contracts.Graph;
 /**
  * Adjacent matrix based graph for int-vertices and no edge weight
  *
- * <p>
- * TODO: should take type parameters
+ * <p>TODO: should take type parameters
  */
 public class AdjacentMatrixGraph implements Graph<Integer, boolean[][]> {
 
