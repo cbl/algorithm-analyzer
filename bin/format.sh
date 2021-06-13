@@ -14,4 +14,6 @@ java --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
 retVal=$?
 if [ $retVal -ne 0 ]; then
     echo "[ERROR]: Some files needed formatting"
+    exit $retVal
 fi
+exit $retVal
