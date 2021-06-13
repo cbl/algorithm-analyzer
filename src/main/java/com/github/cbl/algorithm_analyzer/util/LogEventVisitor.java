@@ -10,5 +10,4 @@ public class LogEventVisitor implements EventVisitor {
         System.out.println(e);
         System.out.println();
     }
-
 }

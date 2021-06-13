@@ -4,6 +4,7 @@ package com.github.cbl.algorithm_analyzer.contracts;
 public interface Algorithm<E extends Event, D> {
     /**
      * Execute an arbritary algorithm
+     *
      * @param events a consumer of possible events
      * @param data the run time data for this execution
      */

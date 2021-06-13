@@ -4,7 +4,7 @@ package com.github.cbl.algorithm_analyzer.contracts;
  * @param <V> type of vertices
  * @param <E> type of edge metadata (e.g. weight)
  */
-public interface Graph<V,E> {
+public interface Graph<V, E> {
 
     abstract boolean hasEdge(V from, V to);
 

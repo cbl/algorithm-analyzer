@@ -1,1 +1,3 @@
 target
+.env
+google-java-format-1.10.0-all-deps.jar

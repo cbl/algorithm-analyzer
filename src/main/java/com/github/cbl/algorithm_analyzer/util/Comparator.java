@@ -1,8 +1,6 @@
 package com.github.cbl.algorithm_analyzer.util;
 
-/**
- * Utility class for comparing objects and storing the number of comparisons made
- */
+/** Utility class for comparing objects and storing the number of comparisons made */
 public class Comparator {
 
     private long comparisons = 0;
@@ -22,6 +20,4 @@ public class Comparator {
         snapshot = comparisons;
         return comparisons - oldSnapshot;
     }
-
-    
 }
