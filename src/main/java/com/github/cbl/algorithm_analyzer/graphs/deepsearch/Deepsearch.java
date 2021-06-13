@@ -97,6 +97,7 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
             int[] discovered,
             int[] finished,
             int[] previous) {
+
         if (!graph.hasEdge(from, to)) {
             return EdgeType.KeineKante;
         }
@@ -105,9 +106,13 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
                 && discovered[to] < finished[to]
                 && finished[to] < finished[from]) {
             return previous[to] == from ? EdgeType.Baumkante : EdgeType.Vorwaertskante;
-        } else if (discovered[to] < finished[to]
+        }
+
+        if (discovered[to] < finished[to]
                 && finished[to] < discovered[from]
-                && discovered[from] < finished[from]) return EdgeType.Querkante;
+                && discovered[from] < finished[from]) {
+            return EdgeType.Querkante;
+        }
 
         return EdgeType.Rueckwaertskante;
     }
