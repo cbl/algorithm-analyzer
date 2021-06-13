@@ -5,7 +5,7 @@ import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
-import com.github.cbl.algorithm_analyzer.graphs.tiefensuche.Tiefensuche;
+import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
@@ -26,10 +26,10 @@ public class Main {
         graph.setEdge(2, 1);
         graph.setEdge(3, 2);
 
-        final Algorithm<Event, Tiefensuche.Data> a = new Tiefensuche();
+        final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
-        a.run(ec, new Tiefensuche.Data(graph, nodeNames));
+        a.run(ec, new Deepsearch.Data(graph, nodeNames));
 
         ec.visitEvents(new LogEventVisitor());
     }

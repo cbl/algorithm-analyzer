@@ -1,4 +1,4 @@
-package com.github.cbl.algorithm_analyzer.graphs.tiefensuche;
+package com.github.cbl.algorithm_analyzer.graphs.deepsearch;
 
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
@@ -9,7 +9,7 @@ import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
-public class Tiefensuche implements Algorithm<Event, Tiefensuche.Data> {
+public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
 
     public static record Data(Graph<Integer, boolean[][]> graph, String[] nodeNames) {
     };
