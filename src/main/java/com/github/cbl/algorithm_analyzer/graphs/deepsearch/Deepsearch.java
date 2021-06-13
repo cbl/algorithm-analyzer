@@ -13,22 +13,25 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
     public static record Data(Graph<Integer, boolean[][]> graph, String[] nodeNames) {}
     ;
 
-    public static record FinalTimesEvent(Data data, int[] discovered, int[] finished)
-            implements Event {
+    public static record FinalTimesEvent(
+            Data data, int[] discovered, int[] finished, int[] previous) implements Event {
         @Override
         public String toString() {
-            Object[][] table = new Object[3][];
+            Object[][] table = new Object[4][];
             table[0] = new Object[discovered.length + 1];
             table[1] = new Object[discovered.length + 1];
             table[2] = new Object[discovered.length + 1];
+            table[3] = new Object[discovered.length + 1];
             table[0][0] = "";
             table[1][0] = "Entdeckt";
             table[2][0] = "Fertig";
+            table[3][0] = "Vorgaenger";
 
             for (int i = 0; i < discovered.length; i++) {
                 table[0][i + 1] = data.nodeNames()[i];
                 table[1][i + 1] = discovered[i];
                 table[2][i + 1] = finished[i];
+                table[3][i + 1] = data.nodeNames()[previous[i]];
             }
 
             return TablePrinter.toString(table);
@@ -73,7 +76,7 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
             }
         }
 
-        events.accept(new FinalTimesEvent(data, discovered, finished));
+        events.accept(new FinalTimesEvent(data, discovered, finished, previous));
 
         EdgeType[][] types = new EdgeType[graph.getVerticeCount()][];
 
