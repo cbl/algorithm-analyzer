@@ -20,7 +20,7 @@ jobs:
             - name: Setup google-java-format
               run: |
                   wget https://github.com/google/google-java-format/releases/download/v1.10.0/google-java-format-1.10.0-all-deps.jar
-                  cat env > "GOOGLE_JAVA_FORMATTER_JAR=google-java-format-1.10.0-all-deps.jar"
+                  echo -e "GOOGLE_JAVA_FORMATTER_JAR=google-java-format-1.10.0-all-deps.jar" >> .env
 
             - name: Format code
               run: /bin/sh bin/format.sh
