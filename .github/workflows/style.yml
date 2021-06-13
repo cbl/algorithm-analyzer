@@ -18,12 +18,11 @@ jobs:
                   java-version: '16'
 
             - name: Setup google-java-format
-              run: |
-                  wget https://github.com/google/google-java-format/releases/download/v1.10.0/google-java-format-1.10.0-all-deps.jar
-                  echo -e "GOOGLE_JAVA_FORMATTER_JAR=google-java-format-1.10.0-all-deps.jar" >> .env
+              run: wget https://github.com/google/google-java-format/releases/download/v1.10.0/google-java-format-1.10.0-all-deps.jar
 
             - name: Format code
-              run: /bin/sh bin/format.sh
+              run: java --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED -jar google-java-format-1.10.0-all-deps.jar --set-exit-if-changed -a -r $(find . -type f -name "*.java")
+              continue-on-error: true
 
             - name: Commit formatted code
               uses: EndBug/add-and-commit@v4
@@ -38,4 +37,4 @@ jobs:
                   message: 'Apply fixes from CI
 
 
-                      Co-authored-by: github-actions[bot] <action@github.com>'
+                  Co-authored-by: github-actions[bot] <action@github.com>'
