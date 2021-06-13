@@ -6,17 +6,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Utility class for pretty-printing trees
- */
+/** Utility class for pretty-printing trees */
 public class TreePrinter {
 
-    private final static int PRINT_WIDTH = 100;
+    private static final int PRINT_WIDTH = 100;
 
     record ObjAndWidth(String string, int width) {}
 
     /**
      * Pretty-formats a tree to an ascii art like image
+     *
      * @param t list of tree nodes in top-to-bottom, left-to-right order
      * @return a string representing the tree
      */
@@ -44,10 +43,14 @@ public class TreePrinter {
         var positions = objectPositions(depth, 0, PRINT_WIDTH);
         var index = new AtomicInteger(0);
         return t.stream()
-            .map(TreePrinter::printObject)
-            .map(o -> padLeft(o.string(), positions.get(index.getAndIncrement()) - (o.width() / 2)))
-            .collect(Collectors.reducing(TreePrinter::mergeMultilineStrings))
-            .get();
+                .map(TreePrinter::printObject)
+                .map(
+                        o ->
+                                padLeft(
+                                        o.string(),
+                                        positions.get(index.getAndIncrement()) - (o.width() / 2)))
+                .collect(Collectors.reducing(TreePrinter::mergeMultilineStrings))
+                .get();
     }
 
     private static String printArrows(List<? extends Object> t) {
@@ -83,11 +86,18 @@ public class TreePrinter {
             return new ObjAndWidth("", 0);
         } else {
             var s = t.toString();
-            var box = (
-                "┌" + "─".repeat(s.length() + 2) + "┐" + "\n" +
-                "| " + s + " |" + "\n" +
-                "└" + "─".repeat(s.length() + 2) + "┘"
-            );
+            var box =
+                    ("┌"
+                            + "─".repeat(s.length() + 2)
+                            + "┐"
+                            + "\n"
+                            + "| "
+                            + s
+                            + " |"
+                            + "\n"
+                            + "└"
+                            + "─".repeat(s.length() + 2)
+                            + "┘");
 
             return new ObjAndWidth(box, s.length() + 4);
         }
