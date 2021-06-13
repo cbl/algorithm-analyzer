@@ -13,4 +13,6 @@ public interface Graph<V, E> {
     void setEdge(V from, V to);
 
     void deleteEdge(V from, V to);
+
+    E getEdges();
 }
