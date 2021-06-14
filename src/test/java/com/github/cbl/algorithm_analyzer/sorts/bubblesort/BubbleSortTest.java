@@ -11,7 +11,7 @@ public class BubbleSortTest {
     @Test
     public void testBubbleSort() {
         BubbleSort<Integer> qs = new BubbleSort<>();
-        final var expected = new Integer[] {2, 2, 3, 4, 5, 6, 7, 8};
+        final var expected = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8};
 
         var arr1 = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8};
         qs.run(new GeneralEventConsumer(), new BubbleSort.Data<Integer>(arr1));
