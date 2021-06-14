@@ -13,7 +13,7 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
 
     public static record Data<T extends Comparable<T>>(T[] array) {}
 
-    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes)
+    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes, long stepWidth)
             implements Event {
         @Override
         public String toString() {
@@ -21,6 +21,7 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
             sj.add(ArrayPrinter.toString(array));
             sj.add("Comparisons: " + comparisons);
             sj.add("Writes: " + writes);
+            sj.add("Stepwidth: " + stepWidth);
 
             return sj.toString();
         }
@@ -52,12 +53,12 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
 
                 events.accept(
                         new PartialStateEvent<T>(
-                                arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
+                                arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot(), stepSize));
             }
             stepSize = stepSize / 3;
         }
 
-        events.accept(new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites()));
+        events.accept(new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites(), stepSize));
     }
     ;
 }
