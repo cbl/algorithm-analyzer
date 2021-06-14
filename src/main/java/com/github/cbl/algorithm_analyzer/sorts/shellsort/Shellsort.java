@@ -13,8 +13,8 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
 
     public static record Data<T extends Comparable<T>>(T[] array) {}
 
-    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes, long stepWidth)
-            implements Event {
+    public static record PartialStateEvent<T>(
+            T[] array, long comparisons, long writes, long stepWidth) implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
@@ -53,7 +53,10 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
 
                 events.accept(
                         new PartialStateEvent<T>(
-                                arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot(), stepSize));
+                                arr.clone(),
+                                c.getComparisonsSnapshot(),
+                                w.getWritesSnapshot(),
+                                stepSize));
             }
             stepSize = stepSize / 3;
         }
