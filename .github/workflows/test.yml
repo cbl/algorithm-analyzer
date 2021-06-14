@@ -1,0 +1,20 @@
+name: Test
+
+on:
+    push:
+
+jobs:
+    unit_testing:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2 # v2 minimum required
+
+            - name: Setup Java
+              uses: actions/setup-java@v2
+              with:
+                  distribution: 'adopt'
+                  java-version: '16'
+
+            - name: Run tests
+              run: mvn --batch-mode verify
