@@ -6,19 +6,17 @@ import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
+import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
-
-import java.util.Comparator;
-
-// import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
-// import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
+import java.util.Comparator;
+
 public class Main {
     public static void main(String[] args) throws Exception {
-        //
+        Main.shellSort();
     }
 
     public static void tiefenSuche() {
@@ -49,7 +47,17 @@ public class Main {
         a.run(ec, new BubbleSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
+    }
 
+    public static void shellSort() {
+        final Integer[] array = { 6, 5, 4, 3, 2, 1 };
+
+        final Algorithm<Event,Shellsort.Data<Integer>> a = new Shellsort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Shellsort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
     }
         
     public static void avlTree() {
