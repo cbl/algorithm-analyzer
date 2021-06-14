@@ -31,7 +31,7 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
         final T[] arr = data.array();
         final Comparator c = new Comparator();
         final ArrayWriter w = new ArrayWriter();
-        
+
         int stepSize = 1;
 
         while ((3 * stepSize + 1) < arr.length) {
@@ -51,8 +51,8 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
                 w.set(arr, k, current);
 
                 events.accept(
-                    new PartialStateEvent<T>(
-                            arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
+                        new PartialStateEvent<T>(
+                                arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
             }
             stepSize = stepSize / 3;
         }
