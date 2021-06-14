@@ -59,7 +59,10 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
 
             events.accept(
                     new PartialStateEvent<>(
-                            arr.clone(), new Range(i,j), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
+                            arr.clone(),
+                            new Range(i, j),
+                            c.getComparisonsSnapshot(),
+                            w.getWritesSnapshot()));
 
             quicksort(arr, i, range.p, c, w, events);
             quicksort(arr, range.q, j, c, w, events);
