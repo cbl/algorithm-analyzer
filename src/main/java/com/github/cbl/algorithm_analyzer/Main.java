@@ -4,8 +4,12 @@ import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
+import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
+import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
+import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
+import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
@@ -14,6 +18,7 @@ import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
 import java.util.Comparator;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -23,7 +28,7 @@ public class Main {
     public static void tiefenSuche() {
         int size = 4;
         String[] nodeNames = {"A", "B", "C", "D"};
-        Graph<Integer, boolean[][]> graph = new AdjacentMatrixGraph(size);
+        WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
         graph.setEdge(0, 3);
         graph.setEdge(0, 2);
@@ -88,6 +93,26 @@ public class Main {
         t.remove(2);
         t.insert(13);
         t.remove(3);
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+
+
+
+    @SuppressWarnings("varargs")
+    public static void floydWarshall() {
+        Graph<Character,Integer> costs = new LinkedGraph<>(Set.of(
+            Edge.of('v', 'x', 2),
+            Edge.of('w', 'v', 10),
+            Edge.of('w', 'x', 5),
+            Edge.of('x', 'v', 3),
+            Edge.of('x', 'y', 2),
+            Edge.of('y', 'v', 10),
+            Edge.of('y', 'w', 1)));
+        Algorithm<Event,FloydWarshall.Data<Character>> alg = new FloydWarshall<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+        alg.run(ec, new FloydWarshall.Data<>(costs));
 
         ec.visitEvents(new LogEventVisitor());
     }

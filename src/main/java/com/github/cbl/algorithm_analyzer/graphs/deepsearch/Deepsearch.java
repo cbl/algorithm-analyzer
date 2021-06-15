@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 
 public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
 
-    public static record Data(Graph<Integer, boolean[][]> graph, String[] nodeNames) {}
+    public static record Data(Graph<Integer, ?> graph, String[] nodeNames) {}
     ;
 
     public static record FinalTimesEvent(
@@ -63,7 +63,7 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
     }
 
     public void run(EventConsumer<Event> events, Data data) {
-        Graph<Integer, boolean[][]> graph = data.graph();
+        Graph<Integer, ?> graph = data.graph();
         boolean known[] = new boolean[graph.getVerticeCount()];
         int previous[] = new int[graph.getVerticeCount()];
         int discovered[] = new int[graph.getVerticeCount()];
@@ -93,7 +93,7 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
     protected EdgeType getEdgeType(
             int from,
             int to,
-            Graph<Integer, boolean[][]> graph,
+            Graph<Integer, ?> graph,
             int[] discovered,
             int[] finished,
             int[] previous) {
@@ -118,7 +118,7 @@ public class Deepsearch implements Algorithm<Event, Deepsearch.Data> {
     }
 
     protected int expand(
-            Graph<Integer, boolean[][]> graph,
+            Graph<Integer, ?> graph,
             int u,
             int[] discovered,
             int[] finished,
