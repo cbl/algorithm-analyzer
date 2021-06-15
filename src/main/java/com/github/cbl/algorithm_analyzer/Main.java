@@ -97,20 +97,19 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
-
-
-
     @SuppressWarnings("varargs")
     public static void floydWarshall() {
-        Graph<Character,Integer> costs = new LinkedGraph<>(Set.of(
-            Edge.of('v', 'x', 2),
-            Edge.of('w', 'v', 10),
-            Edge.of('w', 'x', 5),
-            Edge.of('x', 'v', 3),
-            Edge.of('x', 'y', 2),
-            Edge.of('y', 'v', 10),
-            Edge.of('y', 'w', 1)));
-        Algorithm<Event,FloydWarshall.Data<Character>> alg = new FloydWarshall<>();
+        Graph<Character, Integer> costs =
+                new LinkedGraph<>(
+                        Set.of(
+                                Edge.of('v', 'x', 2),
+                                Edge.of('w', 'v', 10),
+                                Edge.of('w', 'x', 5),
+                                Edge.of('x', 'v', 3),
+                                Edge.of('x', 'y', 2),
+                                Edge.of('y', 'v', 10),
+                                Edge.of('y', 'w', 1)));
+        Algorithm<Event, FloydWarshall.Data<Character>> alg = new FloydWarshall<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
         alg.run(ec, new FloydWarshall.Data<>(costs));
 

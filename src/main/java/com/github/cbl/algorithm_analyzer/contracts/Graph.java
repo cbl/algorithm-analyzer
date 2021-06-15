@@ -27,5 +27,5 @@ public interface Graph<V, E> extends Cloneable {
 
     void deleteEdge(V from, V to);
 
-    Graph<V,E> clone();
+    Graph<V, E> clone();
 }

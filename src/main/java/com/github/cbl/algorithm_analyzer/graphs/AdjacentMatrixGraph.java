@@ -1,12 +1,12 @@
 package com.github.cbl.algorithm_analyzer.graphs;
 
+import com.github.cbl.algorithm_analyzer.contracts.Graph;
+import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import com.github.cbl.algorithm_analyzer.contracts.Graph;
-import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
 
 /** Adjacent matrix based graph for int-vertices and no edge weight */
 public class AdjacentMatrixGraph implements WeightFreeGraph<Integer> {
@@ -29,7 +29,10 @@ public class AdjacentMatrixGraph implements WeightFreeGraph<Integer> {
 
     @Override
     public Collection<Integer> getVertices() {
-        return Arrays.asList(IntStream.range(0, verticeCount).mapToObj(Integer::valueOf).toArray(Integer[]::new));
+        return Arrays.asList(
+                IntStream.range(0, verticeCount)
+                        .mapToObj(Integer::valueOf)
+                        .toArray(Integer[]::new));
     }
 
     @Override
@@ -65,7 +68,7 @@ public class AdjacentMatrixGraph implements WeightFreeGraph<Integer> {
     }
 
     @Override
-    public Graph<Integer,Boolean> clone() {
+    public Graph<Integer, Boolean> clone() {
         var matrixClone = matrix.clone();
         for (int i = 0; i < matrix.length; i++) {
             matrixClone[i] = matrixClone[i].clone();

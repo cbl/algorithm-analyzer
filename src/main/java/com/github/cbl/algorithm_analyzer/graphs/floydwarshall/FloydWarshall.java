@@ -1,12 +1,5 @@
 package com.github.cbl.algorithm_analyzer.graphs.floydwarshall;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
@@ -15,20 +8,27 @@ import com.github.cbl.algorithm_analyzer.contracts.Graph.NoEdgeException;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
 import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 
-/**
- * Calculates all shortest path between all node pairs of a weighted graph
- */
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+/** Calculates all shortest path between all node pairs of a weighted graph */
 public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>> {
 
-    public record Data<V>(Graph<V,Integer> costs) {}
+    public record Data<V>(Graph<V, Integer> costs) {}
 
-    record PartialDistancesEvent<V>(Graph<V,Distance<V>> distances, Collection<V> nodes) implements Event {
+    record PartialDistancesEvent<V>(Graph<V, Distance<V>> distances, Collection<V> nodes)
+            implements Event {
         @Override
         public String toString() {
             try {
                 // convert distances graph to (string)[][] in order to print as table
                 var vn = distances.getVerticeCount();
-                var vs = StreamSupport.stream(distances.getVertices().spliterator(), false).toList();
+                var vs =
+                        StreamSupport.stream(distances.getVertices().spliterator(), false).toList();
                 String[][] ss = new String[vn + 1][vn + 1];
                 ss[0][0] = "";
                 for (int i = 0; i < vn; i++) {
@@ -37,7 +37,7 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
                 }
                 for (int i = 0; i < vn; i++) {
                     for (int j = 0; j < vn; j++) {
-                            ss[i + 1][j + 1] = distances.getEdge(vs.get(i), (V) vs.get(j)).toString();
+                        ss[i + 1][j + 1] = distances.getEdge(vs.get(i), (V) vs.get(j)).toString();
                     }
                 }
                 return "Nodes: " + nodes.toString() + "\n" + TablePrinter.toString(ss);
@@ -55,9 +55,7 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
         }
     }
 
-    /**
-     * Current distance between to nodes and the (optional) node over which the path leads
-     */
+    /** Current distance between to nodes and the (optional) node over which the path leads */
     private record Distance<V>(Integer distance, V over) implements Comparable<Distance<V>> {
 
         static <V> Distance<V> infinite() {
@@ -109,7 +107,13 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
                 if (i.equals(j)) {
                     distances.setEdge(i, j, new Distance<>(0, null));
                 } else {
-                    distances.setEdge(i, j, data.costs.getEdgeMaybe(i, j).map(cost -> new Distance<V>(cost, null)).orElseGet(Distance::infinite)); 
+                    distances.setEdge(
+                            i,
+                            j,
+                            data.costs
+                                    .getEdgeMaybe(i, j)
+                                    .map(cost -> new Distance<V>(cost, null))
+                                    .orElseGet(Distance::infinite));
                 }
             }
         }
@@ -126,7 +130,6 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
                         var dk = distances.getEdge(i, k).add(distances.getEdge(k, j));
                         if (dk.compareTo(d) < 0) {
                             distances.setEdge(i, j, new Distance<>(dk.distance, k));
-
                         }
                     }
                 }
@@ -144,7 +147,8 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
             }
         } catch (NoEdgeException e) {
             e.printStackTrace();
-            assert (false); // should never happen. If the distances graph misses some edges there is a conceptional error, no runtime error 
+            assert (false); // should never happen. If the distances graph misses some edges there
+                            // is a conceptional error, no runtime error
         }
     }
 
@@ -159,5 +163,4 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
             return Stream.concat(Stream.concat(a.stream(), Stream.of(d.over)), b.stream()).toList();
         }
     }
-    
 }
