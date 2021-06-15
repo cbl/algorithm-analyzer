@@ -7,6 +7,7 @@ import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
+import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
@@ -56,6 +57,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Shellsort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void quickSort() {
+        final Integer[] array = {6, 5, 4, 3, 2, 1};
+
+        final Algorithm<Event, Quicksort.Data<Integer>> a = new Quicksort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Quicksort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
