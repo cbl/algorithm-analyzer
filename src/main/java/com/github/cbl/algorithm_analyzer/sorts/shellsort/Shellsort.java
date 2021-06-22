@@ -8,6 +8,7 @@ import com.github.cbl.algorithm_analyzer.util.ArrayWriter;
 import com.github.cbl.algorithm_analyzer.util.Comparator;
 
 import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shellsort.Data<T>> {
 
@@ -18,7 +19,11 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
-            sj.add(ArrayPrinter.toString(array));
+            var colors =
+                    IntStream.range(0, array.length)
+                            .map(i -> i % (int) Math.max(1, stepWidth))
+                            .toArray();
+            sj.add(ArrayPrinter.toString(array, colors));
             sj.add("Comparisons: " + comparisons);
             sj.add("Writes: " + writes);
             sj.add("Stepwidth: " + stepWidth);
