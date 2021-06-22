@@ -148,7 +148,7 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
         } catch (NoEdgeException e) {
             e.printStackTrace();
             assert (false); // should never happen. If the distances graph misses some edges there
-                            // is a conceptional error, no runtime error
+            // is a conceptional error, no runtime error
         }
     }
 
