@@ -9,7 +9,8 @@ import com.github.cbl.algorithm_analyzer.util.Comparator;
 
 import java.util.StringJoiner;
 
-public class InsertionSort<T extends Comparable<T>> implements Algorithm<Event, InsertionSort.Data<T>> {
+public class InsertionSort<T extends Comparable<T>>
+        implements Algorithm<Event, InsertionSort.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(T[] array) {}
 
@@ -35,10 +36,10 @@ public class InsertionSort<T extends Comparable<T>> implements Algorithm<Event, 
         T neu;
         int k;
 
-        for(int i = 1;i<arr.length;i++) {
+        for (int i = 1; i < arr.length; i++) {
             k = i;
-            while (k>0 && c.compare(arr[k-1], arr[i]) > 0) {
-                w.change(arr, k, k-1);
+            while (k > 0 && c.compare(arr[k - 1], arr[i]) > 0) {
+                w.change(arr, k, k - 1);
                 k--;
             }
             w.change(arr, k, i);
