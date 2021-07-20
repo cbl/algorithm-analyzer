@@ -11,6 +11,7 @@ import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
+import com.github.cbl.algorithm_analyzer.sorts.insertionsort.InsertionSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
@@ -22,7 +23,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.shellSort();
+        Main.insertionSort();
     }
 
     public static void tiefenSuche() {
@@ -51,6 +52,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new BubbleSort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void insertionSort() {
+        final Integer[] array = {6, 5, 4, 3, 2, 1};
+
+        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new InsertionSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
