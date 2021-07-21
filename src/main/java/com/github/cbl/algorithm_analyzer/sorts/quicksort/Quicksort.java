@@ -42,7 +42,7 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
 
     public void run(EventConsumer<Event> events, Data<T> data) {
         final T[] arr = data.array();
-        final Comparator c = new Comparator();
+        final Comparator<T> c = Comparator.naturalOrder();
         final ArrayWriter w = new ArrayWriter();
 
         quicksort(arr, 0, arr.length - 1, c, w, events);
@@ -53,7 +53,7 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
     record Range(int p, int q) {}
 
     private void quicksort(
-            T[] arr, int i, int j, Comparator c, ArrayWriter w, EventConsumer<Event> events) {
+            T[] arr, int i, int j, Comparator<T> c, ArrayWriter w, EventConsumer<Event> events) {
         if (i < j) {
             var range = partition(arr, i, j, c, w, events);
 
@@ -70,7 +70,7 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
     }
 
     private Range partition(
-            T[] arr, int i, int j, Comparator c, ArrayWriter w, EventConsumer<Event> events) {
+            T[] arr, int i, int j, Comparator<T> c, ArrayWriter w, EventConsumer<Event> events) {
         var p = arr[j];
 
         while (i <= j) {

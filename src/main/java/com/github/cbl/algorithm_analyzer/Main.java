@@ -13,7 +13,9 @@ import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
+import com.github.cbl.algorithm_analyzer.structures.Heap;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
+import com.github.cbl.algorithm_analyzer.util.ArrayWriter;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
@@ -22,7 +24,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.shellSort();
+        Main.heapify();
     }
 
     public static void tiefenSuche() {
@@ -113,6 +115,26 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
         alg.run(ec, new FloydWarshall.Data<>(costs));
 
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void heapify() {
+        System.out.println("Max Heap\n");
+        Integer[] arr = {2, 15, 7, 12, 13, 20, 38, 1};
+        var c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder();
+        ArrayWriter w = new ArrayWriter();
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        Heap.heapify(arr, arr.length, c, w, ec);
+        
+        ec.visitEvents(new LogEventVisitor());
+
+        System.out.println("\n\nMin Heap");
+        arr = new Integer[]{2, 15, 7, 12, 13, 20, 38, 1};
+        c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder().reversed();
+        w = new ArrayWriter();
+        ec = new GeneralEventConsumer();
+        Heap.heapify(arr, arr.length, c, w, ec);
+        
         ec.visitEvents(new LogEventVisitor());
     }
 }

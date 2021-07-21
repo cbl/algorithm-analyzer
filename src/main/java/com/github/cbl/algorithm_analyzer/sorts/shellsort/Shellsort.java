@@ -35,7 +35,7 @@ public class Shellsort<T extends Comparable<T>> implements Algorithm<Event, Shel
 
     public void run(EventConsumer<Event> events, Data<T> data) {
         final T[] arr = data.array();
-        final Comparator c = new Comparator();
+        final Comparator<T> c = Comparator.naturalOrder();
         final ArrayWriter w = new ArrayWriter();
 
         int stepSize = 1;

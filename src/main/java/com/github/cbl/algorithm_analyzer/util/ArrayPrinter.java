@@ -56,7 +56,7 @@ public class ArrayPrinter {
             var color =
                     i >= colors.length
                             ? new Attribute[] {BLACK_TEXT()}
-                            : COLORS[colors[i] % COLORS.length];
+                            : getColor(colors[i]);
             final String s = " " + el.toString() + " ";
             widths.add(s.length());
             arrSj.add(colorize(s, color));
@@ -68,6 +68,14 @@ public class ArrayPrinter {
         sj.add(lowerBorder(widths));
 
         return sj.toString();
+    }
+
+    private static Attribute[] getColor(int i) {
+        if (i == -1) {
+            return new Attribute[] { BLACK_TEXT() };
+        } else {
+            return COLORS[i % COLORS.length];
+        }
     }
 
     private static String upperBorder(List<Integer> widths) {

@@ -30,7 +30,7 @@ public class BubbleSort<T extends Comparable<T>> implements Algorithm<Event, Bub
     @Override
     public void run(EventConsumer<Event> events, Data<T> data) {
         final T[] arr = data.array();
-        final Comparator c = new Comparator();
+        final Comparator<T> c = Comparator.naturalOrder();
         final ArrayWriter w = new ArrayWriter();
 
         boolean wasSorted = true;

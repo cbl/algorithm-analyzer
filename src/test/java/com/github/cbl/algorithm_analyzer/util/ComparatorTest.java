@@ -19,7 +19,7 @@ public class ComparatorTest {
     @Test
     @DisplayName("Should compare int correctly")
     public void compareInts() {
-        Comparator c = new Comparator();
+        final Comparator<Integer> c = Comparator.naturalOrder();
         assertEquals(c.compare(0, 0), 0, "Compare equals ints");
         assertTrue(c.compare(0, 1) < 0, "Compare a < b ints");
         assertTrue(c.compare(1, 0) > 0, "Compare a > b ints");
@@ -28,7 +28,7 @@ public class ComparatorTest {
     @Test
     @DisplayName("Should obey custom Comparable instance")
     public void compareComparable() {
-        Comparator c = new Comparator();
+        final Comparator<C> c = Comparator.naturalOrder();
         assertEquals(c.compare(new C(0), new C(0)), 0, "Compare equals object");
         assertTrue(c.compare(new C(0), new C(1)) > 0, "Compare a < b object");
         assertTrue(c.compare(new C(1), new C(0)) < 0, "Compare a > b object");
@@ -37,7 +37,7 @@ public class ComparatorTest {
     @Test
     @DisplayName("Handles snapshots correctly")
     public void handlesSnapshotsCorrectly() {
-        Comparator c = new Comparator();
+        final Comparator<Integer> c = Comparator.naturalOrder();
 
         c.compare(0, 0);
         c.compare(0, 0);
