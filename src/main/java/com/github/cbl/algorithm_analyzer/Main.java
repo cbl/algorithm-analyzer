@@ -119,21 +119,29 @@ public class Main {
     }
 
     public static void heapify() {
-        System.out.println("Max Heap\n");
+        System.out.println("Min Heap\n");
         Integer[] arr = {2, 15, 7, 12, 13, 20, 38, 1};
-        var c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder();
+        var c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder().reversed();
         ArrayWriter w = new ArrayWriter();
         EventConsumer<Event> ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
 
         ec.visitEvents(new LogEventVisitor());
 
-        System.out.println("\n\nMin Heap");
+        System.out.println("\n\n\nMax Heap");
         arr = new Integer[] {2, 15, 7, 12, 13, 20, 38, 1};
-        c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder().reversed();
+        c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder();
         w = new ArrayWriter();
         ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
+
+        ec.visitEvents(new LogEventVisitor());
+
+        System.out.println("\n\n\nDecrease key heap[5] <- 40");
+        c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder();
+        w = new ArrayWriter();
+        ec = new GeneralEventConsumer();
+        Heap.decreaseKey(arr, 5, 40, c, w, ec);
 
         ec.visitEvents(new LogEventVisitor());
     }
