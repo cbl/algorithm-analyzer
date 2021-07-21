@@ -121,7 +121,9 @@ public class Main {
     public static void heapify() {
         System.out.println("Min Heap\n");
         Integer[] arr = {2, 15, 7, 12, 13, 20, 38, 1};
-        var c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder().reversed();
+        var c =
+                com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder()
+                        .reversed();
         ArrayWriter w = new ArrayWriter();
         EventConsumer<Event> ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
