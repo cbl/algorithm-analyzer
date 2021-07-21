@@ -125,16 +125,16 @@ public class Main {
         ArrayWriter w = new ArrayWriter();
         EventConsumer<Event> ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
-        
+
         ec.visitEvents(new LogEventVisitor());
 
         System.out.println("\n\nMin Heap");
-        arr = new Integer[]{2, 15, 7, 12, 13, 20, 38, 1};
+        arr = new Integer[] {2, 15, 7, 12, 13, 20, 38, 1};
         c = com.github.cbl.algorithm_analyzer.util.Comparator.<Integer>naturalOrder().reversed();
         w = new ArrayWriter();
         ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
-        
+
         ec.visitEvents(new LogEventVisitor());
     }
 }

@@ -21,7 +21,7 @@ public class HeapTest {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
 
-        Integer[] expected = { 38, 15, 20, 12, 13, 2, 7, 1 };
+        Integer[] expected = {38, 15, 20, 12, 13, 2, 7, 1};
         assertArrayEquals(expected, arr);
     }
 
@@ -33,20 +33,19 @@ public class HeapTest {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
         Heap.heapify(arr, arr.length, c, w, ec);
 
-        Integer[] expected = { 1, 2, 7, 12, 13, 20, 38, 15 };
+        Integer[] expected = {1, 2, 7, 12, 13, 20, 38, 15};
         assertArrayEquals(expected, arr);
     }
 
     @Test
     public void testIsMaxHeap() {
-        Integer[] maxHeap = { 38, 15, 20, 12, 13, 2, 7, 1 };
+        Integer[] maxHeap = {38, 15, 20, 12, 13, 2, 7, 1};
         assertEquals(true, Heap.isMaxHeap(maxHeap));
     }
 
     @Test
     public void testIsMinHeap() {
-        Integer[] minHeap = { 1, 2, 7, 12, 13, 20, 38, 15 };
+        Integer[] minHeap = {1, 2, 7, 12, 13, 20, 38, 15};
         assertEquals(true, Heap.isMinHeap(minHeap));
     }
-    
 }

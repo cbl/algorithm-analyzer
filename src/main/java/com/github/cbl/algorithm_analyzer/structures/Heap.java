@@ -1,12 +1,12 @@
 package com.github.cbl.algorithm_analyzer.structures;
 
-import java.util.StringJoiner;
-import java.util.function.Consumer;
-
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.util.ArrayPrinter;
 import com.github.cbl.algorithm_analyzer.util.ArrayWriter;
 import com.github.cbl.algorithm_analyzer.util.Comparator;
+
+import java.util.StringJoiner;
+import java.util.function.Consumer;
 
 public interface Heap {
 
@@ -58,7 +58,6 @@ public interface Heap {
         }
     }
 
-
     record HeapifyEvent<T>(T[] arr, long comparisons, long writes) implements Event {
         @Override
         public String toString() {
@@ -71,33 +70,44 @@ public interface Heap {
         }
     }
 
-
     /**
      * Builds max heap, if comparator compares by natural order
+     *
      * @param <T> the type of heap elements
      * @param arr the array to heapify
      * @param size the size of the (partial) array to heapify
      * @param cmp the comparator to use
      * @param w the writer to use
      */
-    static <T extends Comparable<T>> void heapify(T[] arr, int size, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
+    static <T extends Comparable<T>> void heapify(
+            T[] arr, int size, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
         for (int i = (size - 1) / 2; i >= 0; i--) {
             sink(arr, i, size, cmp, w, events);
-            events.accept(new SinkRunEvent<T>(arr.clone(), cmp.getComparisonsSnapshot(), w.getWritesSnapshot()));
+            events.accept(
+                    new SinkRunEvent<T>(
+                            arr.clone(), cmp.getComparisonsSnapshot(), w.getWritesSnapshot()));
         }
 
         events.accept(new HeapifyEvent<>(arr.clone(), cmp.getComparisons(), w.getWrites()));
     }
 
-    static <T extends Comparable<T>> void decreaseKey(T[] arr, int index, T newKey, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
+    static <T extends Comparable<T>> void decreaseKey(
+            T[] arr,
+            int index,
+            T newKey,
+            Comparator<T> cmp,
+            ArrayWriter w,
+            Consumer<Event> events) {
         arr[index] = newKey;
         rise(arr, index, cmp, w, events);
-        events.accept(new RiseRunEvent<T>(arr.clone(), cmp.getComparisonsSnapshot(), w.getWritesSnapshot()));
+        events.accept(
+                new RiseRunEvent<T>(
+                        arr.clone(), cmp.getComparisonsSnapshot(), w.getWritesSnapshot()));
     }
 
     /**
      * Sinks an element inside a heap
-     * 
+     *
      * @param <T> the type of heap elements
      * @param arr the heap
      * @param index the index of the element to sink
@@ -105,7 +115,13 @@ public interface Heap {
      * @param cmp the comparator to use - natural order comparison relates to max-heap
      * @param w the writer to use
      */
-    static <T extends Comparable<T>> void sink(T[] arr, int index, int size, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
+    static <T extends Comparable<T>> void sink(
+            T[] arr,
+            int index,
+            int size,
+            Comparator<T> cmp,
+            ArrayWriter w,
+            Consumer<Event> events) {
         T el = arr[index];
         int oldIndex = index;
         int max = index;
@@ -126,7 +142,7 @@ public interface Heap {
             }
 
             if (max != index) {
-                //FIXME: replace with w.write(…) after insertionsort PR is merged!
+                // FIXME: replace with w.write(…) after insertionsort PR is merged!
                 arr[index] = arr[max];
 
                 {
@@ -143,12 +159,12 @@ public interface Heap {
             }
         } while (oldIndex != max);
 
-        //FIXME: replace with w.write(…) after insertionsort PR is merged!
+        // FIXME: replace with w.write(…) after insertionsort PR is merged!
         arr[max] = el;
     }
 
-
-    static <T extends Comparable<T>> void rise(T[] arr, int index, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
+    static <T extends Comparable<T>> void rise(
+            T[] arr, int index, Comparator<T> cmp, ArrayWriter w, Consumer<Event> events) {
         while (index > 0) {
             int p = (index - 1) / 2;
             if (cmp.compare(arr[index], arr[p]) > 0) {
