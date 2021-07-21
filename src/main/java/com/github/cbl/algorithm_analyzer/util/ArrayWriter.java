@@ -22,6 +22,14 @@ public class ArrayWriter {
         }
     }
 
+    public <T> void write(T[] arr, int index, T el) {
+        assert (arr != null);
+        assert (index >= 0 && index < arr.length);
+
+        arr[index] = el;
+        writes++;
+    }
+
     public <T> void set(T[] arr, int i, T value) {
         assert (arr != null);
         assert (i >= 0 && i < arr.length);
