@@ -69,7 +69,7 @@ public class ArrayPrinter {
 
     private static Attribute[] getColor(int i) {
         if (i == -1) {
-            return new Attribute[] {BLACK_TEXT()};
+            return new Attribute[] {};
         } else {
             return COLORS[i % COLORS.length];
         }
