@@ -19,7 +19,7 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
             final StringJoiner sj = new StringJoiner("\n");
             int[] colors = new int[arr.length];
             for (int i = 0; i < limit; i++) {
-                colors[i] = 3;
+                colors[i] = -1;
             }
             for (int i = limit; i < arr.length; i++) {
                 colors[i] = 4;
