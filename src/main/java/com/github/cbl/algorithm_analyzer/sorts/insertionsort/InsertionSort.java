@@ -26,23 +26,22 @@ public class InsertionSort<T extends Comparable<T>>
             return sj.toString();
         }
     }
-    ;
 
     @Override
     public void run(EventConsumer<Event> events, Data<T> data) {
         final T[] arr = data.array();
         final Comparator c = new Comparator();
         final ArrayWriter w = new ArrayWriter();
-        T neu;
-        int k;
 
+        T tmp = null;
         for (int i = 1; i < arr.length; i++) {
-            k = i;
-            while (k > 0 && c.compare(arr[k - 1], arr[i]) > 0) {
-                w.change(arr, k, k - 1);
+            tmp = arr[i];
+            int k = i;
+            while (k > 0 && c.compare(arr[k - 1], tmp) > 0) {
+                w.write(arr, k, arr[k - 1]);
                 k--;
             }
-            w.change(arr, k, i);
+            w.write(arr, k, tmp);
             events.accept(
                     new PartialStateEvent<T>(
                             arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
@@ -50,5 +49,4 @@ public class InsertionSort<T extends Comparable<T>>
 
         events.accept(new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites()));
     }
-    ;
 }
