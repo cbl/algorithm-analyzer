@@ -83,6 +83,9 @@ Calls google-code-formatter locally.
 
 ### Quicksort
 
+![](./images/quicksort.png)
+![](./images/quicksort_partitioning.png)
+
 <a name="shellsort"></a>
 
 ### Shellsort
@@ -159,6 +162,8 @@ Calls google-code-formatter locally.
 <a name="floyd-warshall">
 
 ### Floyd–Warshall Algorithm
+
+![](./images/floyd-warshall.png)
 
 <a name="runtime"></a>
 
