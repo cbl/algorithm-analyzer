@@ -4,6 +4,10 @@ A tool to analyze various sorting algorithms, graphs or binary trees. The reposi
 
 This is a community project with the aim to exchange experiences among students. It is also designed to better understand the algorithms and how they work.
 
+## Contributing
+
+Everyone is welcome to contribute, please read the [contribution guideline](./.github/CONTRIBUTING.md) if you want to know how.
+
 ## Table Of Contents
 
 -   [Usage](#usage)
