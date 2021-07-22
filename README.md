@@ -14,6 +14,7 @@
     -   [Quicksort](#quicksort)
     -   [Shellsort](#shellsort)
     -   [Selectionsort](#selectionsort)
+    -   [Heapsort](#heapsort)
 -   [Data Structures](#data-structures)
     -   [Binary Search](#binary-search)
     -   [AVL Tree](#avl-tree)
@@ -97,6 +98,15 @@ Calls google-code-formatter locally.
 ### Selectionsort
 
 ![](./images/selectionsort.png)
+
+<a name="heapsort"></a>
+
+### Heapsort
+
+![](./images/heapsort.png)
+![](./images/heapsort_build.png)
+![](./images/heapsort_sink.png)
+![](./images/heapsort_bottom_up_sink.png)
 
 <a name="data-structures"></a>
 
