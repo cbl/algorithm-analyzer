@@ -13,6 +13,7 @@
     -   [Insertionsort](#insertionsort)
     -   [Quicksort](#quicksort)
     -   [Shellsort](#shellsort)
+    -   [Selectionsort](#selectionsort)
 -   [Data Structures](#data-structures)
     -   [Binary Search](#binary-search)
     -   [AVL Tree](#avl-tree)
@@ -20,7 +21,9 @@
 -   [Graph Algorithms](graphs)
     -   [Deepsearch (Tiefensuche)](#deepsearch)
     -   [Breath-First Search (Breitensuche)](#breath-first-search)
+    -   [Dijkstra](#dijkstra)
     -   [Floyd–Warshall Algorithm](#floyd-warhsall)
+-   [Runtime](#runtime)
 
 <a name="usage"></a>
 
@@ -80,6 +83,18 @@ Calls google-code-formatter locally.
 
 ### Quicksort
 
+<a name="shellsort"></a>
+
+### Shellsort
+
+![](./images/shellsort.png)
+
+<a name="selectionsort"></a>
+
+### Selectionsort
+
+![](./images/selectionsort.png)
+
 <a name="data-structures"></a>
 
 ## Data Structures
@@ -93,6 +108,20 @@ Calls google-code-formatter locally.
 <a name="avl"></a>
 
 ### AVL Tree
+
+![](./images/avl_rotate.png)
+![](./images/avl_insert.png)
+![](./images/avl_insert_recursive.png)
+![](./images/avl_rotate_right.png)
+![](./images/avl_rotate_left.png)
+![](./images/avl_balance.png)
+![](./images/avl_check_right.png)
+![](./images/avl_check_left.png)
+![](./images/avl_delete_1.png)
+![](./images/avl_delete_2.png)
+![](./images/avl_successor.png)
+![](./images/avl_successor_recursive.png)
+![](./images/avl_sort.png)
 
 <a name="skiplist"></a>
 
@@ -119,6 +148,24 @@ Calls google-code-formatter locally.
 
 ![](./images/breath-first_search.png)
 
+<a name="dijkstra">
+
+### Dijkstra
+
+![](./images/dijkstra.png)
+![](./images/dijkstra_vertice_exists.png)
+![](./images/dijkstra_next.png)
+
 <a name="floyd-warshall">
 
 ### Floyd–Warshall Algorithm
+
+<a name="runtime"></a>
+
+## Runtime
+
+| Algorithm     | Best Case  | Worst Case | Expected Case           |
+| ------------- | ---------- | ---------- | ----------------------- |
+| Shellsort     | O(n log n) | O(n²)      | Depends on gap sequence |
+| Selectionsort | O(n²)      | O(n²)      | O(n²)                   |
+| dijkstra      | O(n²)      | O(n²)      | O(n²)                   |
