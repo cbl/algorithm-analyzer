@@ -1,5 +1,9 @@
 # algorithm-analyzer
 
+A tool to analyze various sorting algorithms, graphs or binary trees. The repository contains implementations for algorithms that where taught by Prof. Dr. rer. nat. Karsten Weicker in the Sommersemester 2021 at the Htwk Leipzig.
+
+This is a community project with the aim to exchange experiences among students. It is also designed to better understand the algorithms and how they work.
+
 ## Table Of Contents
 
 -   [Usage](#usage)
