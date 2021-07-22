@@ -6,7 +6,7 @@ This is a community project with the aim to exchange experiences among students.
 
 ## Contributing
 
-Everyone is welcome to contribute, please read the [contribution guideline](./.github/CONTRIBUTING.md) if you want to know how.
+Everyone is welcome to contribute, please read the [contribution guideline](./.github/CONTRIBUTING.md) if you want to know how this works.
 
 ## Table Of Contents
 
