@@ -15,6 +15,7 @@
     -   [Shellsort](#shellsort)
     -   [Selectionsort](#selectionsort)
     -   [Heapsort](#heapsort)
+    -   [Radixsort](#radixsort)
 -   [Data Structures](#data-structures)
     -   [Binary Search](#binary-search)
     -   [AVL Tree](#avl-tree)
@@ -107,6 +108,20 @@ Calls google-code-formatter locally.
 ![](./images/heapsort_build.png)
 ![](./images/heapsort_sink.png)
 ![](./images/heapsort_bottom_up_sink.png)
+
+<a name="countingsort"></a>
+
+### Countingsort
+
+![](./images/countingsort.png)
+
+<a name="radixsort"></a>
+
+### Radixsort
+
+![](./images/radixsort.png)
+
+See: [Countingsort](#countingsort)
 
 <a name="data-structures"></a>
 
