@@ -18,7 +18,7 @@ public class TablePrinter {
 
         for (int r = 0; r < table.length; r++) {
             for (int c = 0; c < table[r].length; c++) {
-                if(table[r][c] == null) table[r][c] = "";
+                if (table[r][c] == null) table[r][c] = "";
                 width = table[r][c].toString().length();
                 if ((width + 2) > maxWidths[c]) {
                     maxWidths[c] = width + 2;

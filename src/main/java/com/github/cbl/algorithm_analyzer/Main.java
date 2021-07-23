@@ -27,8 +27,7 @@ public class Main {
         Main.dijkstra();
     }
 
-    public static void dijkstra()
-    {
+    public static void dijkstra() {
         int size = 4;
         Graph<Character, Integer> costs =
                 new LinkedGraph<>(
