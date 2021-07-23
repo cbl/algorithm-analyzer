@@ -11,7 +11,7 @@ import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
-import com.github.cbl.algorithm_analyzer.sorts.insertionsort.InsertionSort;
+import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.insertionSort();
+        Main.heapSort();
     }
 
     public static void tiefenSuche() {
@@ -56,17 +56,6 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
-    public static void insertionSort() {
-        final Integer[] array = {6, 5, 4, 3, 2, 1};
-
-        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
-        final EventConsumer<Event> ec = new GeneralEventConsumer();
-
-        a.run(ec, new InsertionSort.Data<>(array));
-
-        ec.visitEvents(new LogEventVisitor());
-    }
-
     public static void shellSort() {
         final Integer[] array = {6, 5, 4, 3, 2, 1};
 
@@ -79,12 +68,23 @@ public class Main {
     }
 
     public static void quickSort() {
-        final Integer[] array = {6, 5, 4, 3, 2, 1};
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
 
         final Algorithm<Event, Quicksort.Data<Integer>> a = new Quicksort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Quicksort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void heapSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, HeapSort.Data<Integer>> a = new HeapSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new HeapSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
