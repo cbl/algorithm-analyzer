@@ -31,8 +31,8 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
         }
     }
 
-    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes, String message)
-            implements Event {
+    public static record PartialStateEvent<T>(
+            T[] array, long comparisons, long writes, String message) implements Event {
 
         public PartialStateEvent(T[] array, long comparisons, long writes) {
             this(array, comparisons, writes, null);
@@ -74,6 +74,7 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
 
     /**
      * Descends element at {@code index} to reinforce heap-properties in arr
+     *
      * @param index 1-based index of lement to descend
      * @param limit 1-based limit (length of heap in arr)
      * @param arr the array that is / contains the max-heap
