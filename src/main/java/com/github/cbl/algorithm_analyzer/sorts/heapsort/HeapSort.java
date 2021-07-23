@@ -16,7 +16,6 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
     public static record FinalStateEvent<T>(T[] arr, int from, int to, int limit) implements Event {
         @Override
         public String toString() {
-            // System.out.println("Index: " + index + "    " + 2*index);
             final StringJoiner sj = new StringJoiner("\n");
             int[] colors = new int[arr.length];
             for (int i = 0; i < limit; i++) {
@@ -32,11 +31,20 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
         }
     }
 
-    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes)
+    public static record PartialStateEvent<T>(T[] array, long comparisons, long writes, String message)
             implements Event {
+
+        public PartialStateEvent(T[] array, long comparisons, long writes) {
+            this(array, comparisons, writes, null);
+        }
+
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
+            if (null != message) {
+                sj.add(message);
+                sj.add("=".repeat(message.length()));
+            }
             sj.add(ArrayPrinter.toString(array));
             sj.add("Comparisons: " + comparisons);
             sj.add("Writes: " + writes);
@@ -64,6 +72,12 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
     }
     ;
 
+    /**
+     * Descends element at {@code index} to reinforce heap-properties in arr
+     * @param index 1-based index of lement to descend
+     * @param limit 1-based limit (length of heap in arr)
+     * @param arr the array that is / contains the max-heap
+     */
     private void descendMaxHeap(
             int index,
             int limit,
@@ -75,6 +89,8 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
         var max = 0;
         var maxWorth = arr[0];
         var oldIndex = index;
+
+        events.accept(new FinalStateEvent<T>(arr.clone(), index - 1, index - 1, limit));
 
         do {
             oldIndex = index;
@@ -92,22 +108,20 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
                 maxWorth = arr[2 * index];
             }
 
-            events.accept(new FinalStateEvent<T>(arr.clone(), index - 1, max - 1, limit));
-
             if (max != index) {
-                // System.out.println((arr[index-1]) +"   tausche mit    " + (arr[max-1]));
                 w.set(arr, index - 1, arr[max - 1]);
                 index = max;
+
+                T[] tmp = arr.clone();
+                tmp[max - 1] = worth;
+                events.accept(new FinalStateEvent<T>(tmp, oldIndex - 1, max - 1, limit));
             }
 
         } while (oldIndex != max);
-        System.out.println("Setze " + arr[max - 1] + " = " + worth);
+
         if (arr[max - 1] != worth) {
             w.set(arr, max - 1, worth);
-            events.accept(new FinalStateEvent<T>(arr.clone(), index - 1, max - 1, limit));
         }
-
-        // arr[max-1] = worth;
     }
     ;
 
@@ -121,7 +135,7 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
         }
         events.accept(
                 new PartialStateEvent<T>(
-                        arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
+                        arr.clone(), c.getComparisons(), w.getWrites(), "Build up heap:"));
     }
     ;
 }
