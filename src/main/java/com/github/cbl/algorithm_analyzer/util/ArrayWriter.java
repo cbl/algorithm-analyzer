@@ -22,7 +22,6 @@ public class ArrayWriter {
         }
     }
 
-    /** @deprecated Duplicate of {@link ArrayWriter#set(Object[], int, Object)} */
     public <T> void write(T[] arr, int index, T el) {
         assert (arr != null);
         assert (index >= 0 && index < arr.length);
