@@ -119,10 +119,7 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
             }
 
         } while (oldIndex != max);
-
-        if (arr[max - 1] != worth) {
-            w.set(arr, max - 1, worth);
-        }
+        w.set(arr, max - 1, worth);
     }
     ;
 
