@@ -1,8 +1,5 @@
 package com.github.cbl.algorithm_analyzer;
 
-import java.util.Comparator;
-import java.util.Set;
-
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
@@ -20,6 +17,9 @@ import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
+
+import java.util.Comparator;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
