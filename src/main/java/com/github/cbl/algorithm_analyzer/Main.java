@@ -1,5 +1,8 @@
 package com.github.cbl.algorithm_analyzer;
 
+import java.util.Comparator;
+import java.util.Set;
+
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
@@ -11,18 +14,16 @@ import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
+import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
-import java.util.Comparator;
-import java.util.Set;
-
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.shellSort();
+        Main.heapSort();
     }
 
     public static void tiefenSuche() {
@@ -67,12 +68,23 @@ public class Main {
     }
 
     public static void quickSort() {
-        final Integer[] array = {6, 5, 4, 3, 2, 1};
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
 
         final Algorithm<Event, Quicksort.Data<Integer>> a = new Quicksort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Quicksort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void heapSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, HeapSort.Data<Integer>> a = new HeapSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new HeapSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
