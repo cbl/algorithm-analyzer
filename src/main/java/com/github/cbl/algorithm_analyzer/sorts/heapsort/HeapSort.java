@@ -136,7 +136,10 @@ public class HeapSort<T extends Comparable<T>> implements Algorithm<Event, HeapS
         }
         events.accept(
                 new PartialStateEvent<T>(
-                        arr.clone(), c.getComparisons(), w.getWrites(), "Total after building up heap:"));
+                        arr.clone(),
+                        c.getComparisons(),
+                        w.getWrites(),
+                        "Total after building up heap:"));
     }
     ;
 }
