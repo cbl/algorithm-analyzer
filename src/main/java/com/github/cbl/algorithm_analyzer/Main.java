@@ -9,6 +9,7 @@ import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
+import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.insertionsort.InsertionSort;
@@ -23,12 +24,34 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.insertionSort();
+        Main.dijkstra();
+    }
+
+    public static void dijkstra()
+    {
+        int size = 4;
+        Graph<Character, Integer> costs =
+                new LinkedGraph<>(
+                        Set.of(
+                                Edge.of('A', 'B', 100),
+                                Edge.of('A', 'C', 50),
+                                Edge.of('B', 'C', 100),
+                                Edge.of('B', 'D', 100),
+                                Edge.of('B', 'E', 250),
+                                Edge.of('C', 'E', 250),
+                                Edge.of('D', 'E', 50)));
+
+        final Algorithm<Event, Dijkstra.Data> a = new Dijkstra<Character>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Dijkstra.Data<Character>(costs, 'A'));
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void tiefenSuche() {
         int size = 4;
-        String[] nodeNames = {"A", "B", "C", "D"};
+        String[] nodeNames = {"A", "B", "C", "D", "E"};
         WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
         graph.setEdge(0, 3);
