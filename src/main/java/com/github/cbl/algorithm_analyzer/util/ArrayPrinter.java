@@ -53,10 +53,7 @@ public class ArrayPrinter {
         final StringJoiner arrSj = new StringJoiner("|", "|", "|");
         for (int i = 0; i < arr.length; i++) {
             Object el = arr[i];
-            var color =
-                    i >= colors.length
-                            ? new Attribute[] {}
-                            : getColor(colors[i]);
+            var color = i >= colors.length ? new Attribute[] {} : getColor(colors[i]);
             final String s = " " + el.toString() + " ";
             widths.add(s.length());
             arrSj.add(colorize(s, color));
