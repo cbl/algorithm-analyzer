@@ -28,7 +28,6 @@ public class Main {
     }
 
     public static void dijkstra() {
-        int size = 4;
         Graph<Character, Integer> costs =
                 new LinkedGraph<>(
                         Set.of(
@@ -40,7 +39,7 @@ public class Main {
                                 Edge.of('C', 'E', 250),
                                 Edge.of('D', 'E', 50)));
 
-        final Algorithm<Event, Dijkstra.Data> a = new Dijkstra<Character>();
+        final Algorithm<Event, Dijkstra.Data<Character>> a = new Dijkstra<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Dijkstra.Data<Character>(costs, 'A'));

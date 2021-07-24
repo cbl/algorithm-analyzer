@@ -9,22 +9,13 @@ import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
+public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data<V>> {
 
     private static final int INFINITY = Integer.MAX_VALUE;
 
     public record Data<V>(Graph<V, Integer> graph, V start) {}
 
-    public class PartialDistancesEvent implements Event {
-        Data data;
-        State state;
-        int i;
-
-        PartialDistancesEvent(Data data, State state, int i) {
-            this.data = data;
-            this.state = state;
-            this.i = i;
-        }
+    public record PartialDistancesEvent<V>(Data<V> data, State<V> state, int i) implements Event {
 
         @Override
         public String toString() {
@@ -54,26 +45,15 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
     }
     ;
 
-    private class State implements Cloneable {
-        Map<V, Integer> distance;
-        Map<V, V> previous;
-        Map<V, Boolean> done;
+    private record State<V>(Map<V, Integer> distance, Map<V, V> previous, Map<V, Boolean> done) implements Cloneable {
 
         public State() {
-            this.distance = new HashMap<V, Integer>();
-            this.previous = new HashMap<V, V>();
-            this.done = new HashMap<V, Boolean>();
-        }
-
-        private State(Map<V, Integer> distance, Map<V, V> previous, Map<V, Boolean> done) {
-            this.distance = distance;
-            this.previous = previous;
-            this.done = done;
+            this( new HashMap<V, Integer>(), new HashMap<V, V>(), new HashMap<V, Boolean>());
         }
 
         @Override
-        public State clone() {
-            return new State(
+        public State<V> clone() {
+            return new State<>(
                     new HashMap<V, Integer>(this.distance),
                     new HashMap<V, V>(this.previous),
                     new HashMap<V, Boolean>(this.done));
@@ -81,9 +61,9 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
     }
 
     @Override
-    public void run(EventConsumer<Event> events, Data data) {
+    public void run(EventConsumer<Event> events, Data<V> data) {
         Graph<V, Integer> g = data.graph;
-        State state = new State();
+        State<V> state = new State<V>();
         V next;
         int i = 1;
 
@@ -111,11 +91,11 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
                     // is a conceptional error, no runtime error
                 }
             }
-            events.accept(new PartialDistancesEvent(data, state.clone(), i++));
+            events.accept(new PartialDistancesEvent<V>(data, state.clone(), i++));
         }
     }
 
-    public boolean verticeExists(Data data, State state) {
+    public boolean verticeExists(Data<V> data, State<V> state) {
         Graph<V, Integer> g = data.graph;
         for (V v : g.getVertices()) {
             if (state.distance.get(v) != INFINITY && !state.done.get(v)) {
@@ -126,7 +106,7 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
         return false;
     }
 
-    public V getNextVertice(Data data, State state) {
+    public V getNextVertice(Data<V> data, State<V> state) {
         Graph<V, Integer> g = data.graph;
         Integer minimum = INFINITY;
         V next = null;
