@@ -45,10 +45,11 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data<V>> {
     }
     ;
 
-    private record State<V>(Map<V, Integer> distance, Map<V, V> previous, Map<V, Boolean> done) implements Cloneable {
+    private record State<V>(Map<V, Integer> distance, Map<V, V> previous, Map<V, Boolean> done)
+            implements Cloneable {
 
         public State() {
-            this( new HashMap<V, Integer>(), new HashMap<V, V>(), new HashMap<V, Boolean>());
+            this(new HashMap<V, Integer>(), new HashMap<V, V>(), new HashMap<V, Boolean>());
         }
 
         @Override
@@ -87,7 +88,7 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data<V>> {
                 } catch (Graph.NoEdgeException e) {
                     e.printStackTrace();
                     assert (false); // should never happen. If the distances graph misses some edges
-                                    // there
+                    // there
                     // is a conceptional error, no runtime error
                 }
             }
