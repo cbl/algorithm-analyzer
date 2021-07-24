@@ -40,7 +40,7 @@ public class Dijkstra<V> implements Algorithm<Event, Dijkstra.Data> {
             table[2][1] = "Previous Node";
             table[3][1] = "Done";
             int j = 0;
-            for (V v : g.getVertices()) {
+            for (V v : g.getVertices().stream().sorted().toList()) {
                 table[0][2 + j] = v.toString();
                 table[1][2 + j] =
                         state.distance.get(v) == INFINITY ? "∞" : state.distance.get(v).toString();
