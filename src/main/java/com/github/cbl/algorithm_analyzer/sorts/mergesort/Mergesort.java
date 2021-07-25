@@ -9,27 +9,27 @@ import com.github.cbl.algorithm_analyzer.util.Comparator;
 
 import java.util.StringJoiner;
 
-public class Mergesort<T extends Comparable<T>>
-        implements Algorithm<Event, Mergesort.Data<T>> {
+public class Mergesort<T extends Comparable<T>> implements Algorithm<Event, Mergesort.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(T[] array) {}
 
-    public static record PartialStateEvent<T>(T[] arr, int left, int middle, int right, String text) implements Event {
+    public static record PartialStateEvent<T>(T[] arr, int left, int middle, int right, String text)
+            implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
-            if(text != null){
+            if (text != null) {
                 sj.add(text);
             }
             int[] colors = new int[arr.length];
             for (int i = 0; i < arr.length; i++) {
                 colors[i] = -1;
             }
-            if(left != middle || middle != right){
+            if (left != middle || middle != right) {
                 for (int i = left; i <= middle; i++) {
                     colors[i] = 1;
                 }
-                for (int i = middle+1; i <= right; i++) {
+                for (int i = middle + 1; i <= right; i++) {
                     colors[i] = 2;
                 }
             }
@@ -38,7 +38,8 @@ public class Mergesort<T extends Comparable<T>>
         }
     }
 
-    public static record FinalStateEvent<T>(T[] arr, int left, int middle, int right, long comparisons, long writes)
+    public static record FinalStateEvent<T>(
+            T[] arr, int left, int middle, int right, long comparisons, long writes)
             implements Event {
         @Override
         public String toString() {
@@ -48,11 +49,11 @@ public class Mergesort<T extends Comparable<T>>
             for (int i = 0; i < arr.length; i++) {
                 colors[i] = -1;
             }
-            if(left != middle || middle != right){
+            if (left != middle || middle != right) {
                 for (int i = left; i <= middle; i++) {
                     colors[i] = 1;
                 }
-                for (int i = middle+1; i <= right; i++) {
+                for (int i = middle + 1; i <= right; i++) {
                     colors[i] = 2;
                 }
             }
@@ -74,35 +75,59 @@ public class Mergesort<T extends Comparable<T>>
         int left = 0;
         int right = arr.length - 1;
 
-        mergesort(arr, left, right, c, w, events) ;
+        mergesort(arr, left, right, c, w, events);
 
         events.accept(new FinalStateEvent<T>(arr, 0, 0, 0, c.getComparisons(), w.getWrites()));
-    };
+    }
+    ;
 
-    public void mergesort(T[] arr, int left, int right, Comparator c, ArrayWriter w, EventConsumer<Event> events){
-        if(right > left){
-            int middle = (left+right)/2;
+    public void mergesort(
+            T[] arr,
+            int left,
+            int right,
+            Comparator c,
+            ArrayWriter w,
+            EventConsumer<Event> events) {
+        if (right > left) {
+            int middle = (left + right) / 2;
             mergesort(arr, left, middle, c, w, events);
             mergesort(arr, middle + 1, right, c, w, events);
-            events.accept(new PartialStateEvent<T>(arr.clone(), left, middle, right, "Array A before sorting:"));
+            events.accept(
+                    new PartialStateEvent<T>(
+                            arr.clone(), left, middle, right, "Array A before sorting:"));
             merge(arr, left, middle, right, c, w, events);
-            events.accept(new FinalStateEvent<T>(arr.clone(), left, right, right, c.getComparisonsSnapshot(), w.getWritesSnapshot()));
+            events.accept(
+                    new FinalStateEvent<T>(
+                            arr.clone(),
+                            left,
+                            right,
+                            right,
+                            c.getComparisonsSnapshot(),
+                            w.getWritesSnapshot()));
         }
-    };
+    }
+    ;
 
-    public void merge(T[] arrA, int left, int middle, int right, Comparator c, ArrayWriter w, EventConsumer<Event> events){
+    public void merge(
+            T[] arrA,
+            int left,
+            int middle,
+            int right,
+            Comparator c,
+            ArrayWriter w,
+            EventConsumer<Event> events) {
         T[] arrB = arrA.clone();
 
-        for(int j = 0; j < arrB.length; j++){
+        for (int j = 0; j < arrB.length; j++) {
             arrB[j] = null;
         }
 
-        for(int i = left; i <= middle; i++){
+        for (int i = left; i <= middle; i++) {
             w.set(arrB, i, arrA[i]);
         }
 
-        for(int j = middle + 1; j <= right; j++){
-            w.set(arrB, right+middle+1-j, arrA[j]);
+        for (int j = middle + 1; j <= right; j++) {
+            w.set(arrB, right + middle + 1 - j, arrA[j]);
         }
 
         events.accept(new PartialStateEvent<T>(arrB.clone(), 0, 0, 0, "Array B:"));
@@ -111,12 +136,11 @@ public class Mergesort<T extends Comparable<T>>
         int j = right;
         int k = left;
 
-        while(i < j){
-            if(c.compare(arrB[i], arrB[j])<=0){
+        while (i < j) {
+            if (c.compare(arrB[i], arrB[j]) <= 0) {
                 w.set(arrA, k, arrB[i]);
                 i++;
-            }
-            else{
+            } else {
                 w.set(arrA, k, arrB[j]);
                 j--;
             }
@@ -124,6 +148,4 @@ public class Mergesort<T extends Comparable<T>>
         }
         w.set(arrA, right, arrB[i]);
     }
-
-
 }
