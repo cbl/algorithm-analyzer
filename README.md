@@ -41,6 +41,11 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
 
 <a name="setup"></a>
 
+### Requirements
+
+- JDK `16` or newer
+- Maven `3.8.x` or newer
+
 ### Setup
 
 `mvn clean install`
@@ -54,6 +59,11 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
 <a name="build"></a>
 
 ### Build
+Compile to run directly in the terminal:
+
+`mvn compile`
+
+Package compiled source code into an executable jar file:
 
 `mvn package`
 
