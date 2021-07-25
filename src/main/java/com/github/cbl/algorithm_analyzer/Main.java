@@ -26,8 +26,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Main.dijkstra();
     }
-  
-     public static void dijkstra() {
+
+    public static void dijkstra() {
         Graph<Character, Integer> costs =
                 new LinkedGraph<>(
                         Set.of(
@@ -45,7 +45,7 @@ public class Main {
         a.run(ec, new Dijkstra.Data<Character>(costs, 'A'));
 
         ec.visitEvents(new LogEventVisitor());
-     }
+    }
 
     public static void tiefenSuche() {
         int size = 4;
