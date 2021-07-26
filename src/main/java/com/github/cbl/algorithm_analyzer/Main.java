@@ -12,8 +12,8 @@ import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
-import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -38,12 +38,14 @@ public class Main {
     public static void brentHashTable() {
         int size = 11;
         EventConsumer<Event> ec = new GeneralEventConsumer();
-        BrentHashTable.Hashing hashing = (int key) -> {
-            return key % 11;
-        };
-        BrentHashTable.Hashing doubleHashing = (int key) -> {
-            return (1+(key % (11-1)));
-        };
+        BrentHashTable.Hashing hashing =
+                (int key) -> {
+                    return key % 11;
+                };
+        BrentHashTable.Hashing doubleHashing =
+                (int key) -> {
+                    return (1 + (key % (11 - 1)));
+                };
         BrentHashTable table = new BrentHashTable(ec, size, hashing, doubleHashing);
 
         table.insert(29);

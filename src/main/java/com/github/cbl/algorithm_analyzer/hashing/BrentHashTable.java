@@ -22,7 +22,15 @@ public class BrentHashTable implements HashTable {
         int hash(int key);
     }
 
-    public static record PartialStateEvent<T>(Value[] table, int size, int insertedKey, int hash, int doubleHash, Integer[] removed, List<Integer> collisions) implements Event {
+    public static record PartialStateEvent<T>(
+            Value[] table,
+            int size,
+            int insertedKey,
+            int hash,
+            int doubleHash,
+            Integer[] removed,
+            List<Integer> collisions)
+            implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
@@ -44,9 +52,9 @@ public class BrentHashTable implements HashTable {
             }
 
             sj.add("Inserted: " + insertedKey);
-            sj.add("h("+insertedKey+"): "+hash);
-            sj.add("h'("+insertedKey+"): "+doubleHash);
-            sj.add("Collisions: "+collisions.toString());
+            sj.add("h(" + insertedKey + "): " + hash);
+            sj.add("h'(" + insertedKey + "): " + doubleHash);
+            sj.add("Collisions: " + collisions.toString());
             sj.add(TablePrinter.toString(t));
 
             return sj.toString();
@@ -86,12 +94,13 @@ public class BrentHashTable implements HashTable {
         int i = this.hashing.hash(key);
         Integer[] removed = new Integer[this.size];
         List<Integer> collisions = new ArrayList<Integer>();
-        while(table[i].state == State.Occupied) {
+        while (table[i].state == State.Occupied) {
             collisions.add(i);
-            int newfollows = (i+this.doubleHashing.hash(key)) % this.size;
-            int oldfollows = (i+this.doubleHashing.hash(table[i].key)) % this.size;
+            int newfollows = (i + this.doubleHashing.hash(key)) % this.size;
+            int oldfollows = (i + this.doubleHashing.hash(table[i].key)) % this.size;
 
-            if(table[newfollows].state == State.Empty || table[oldfollows].state == State.Occupied) {
+            if (table[newfollows].state == State.Empty
+                    || table[oldfollows].state == State.Occupied) {
                 i = newfollows;
             } else {
                 removed[i] = table[i].key;
@@ -103,7 +112,15 @@ public class BrentHashTable implements HashTable {
         table[i].key = key;
         table[i].state = State.Occupied;
 
-        this.events.accept(new PartialStateEvent(deepClone(table), size, key, this.hashing.hash(key), this.doubleHashing.hash(key), removed, collisions));
+        this.events.accept(
+                new PartialStateEvent(
+                        deepClone(table),
+                        size,
+                        key,
+                        this.hashing.hash(key),
+                        this.doubleHashing.hash(key),
+                        removed,
+                        collisions));
     }
 
     protected int linearProbing(int key) {
