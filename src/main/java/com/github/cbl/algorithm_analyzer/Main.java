@@ -13,6 +13,7 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
+import com.github.cbl.algorithm_analyzer.search.BinarySearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -31,8 +32,19 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        // Main.tsm();
-        Main.coalescedHashTable();
+        Main.binarySearch();
+    }
+
+    public static void binarySearch() {
+        final Integer[] array = {21, 25, 32, 33, 26, 40, 52, 53, 57, 60, 65, 66, 67, 78};
+        final int searchedValue = 60;
+
+        final Algorithm<Event, BinarySearch.Data<Integer>> a = new BinarySearch<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new BinarySearch.Data<Integer>(array, searchedValue));
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void coalescedHashTable() {
