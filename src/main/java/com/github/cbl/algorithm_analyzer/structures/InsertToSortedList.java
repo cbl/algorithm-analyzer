@@ -5,12 +5,13 @@ import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.util.ArrayPrinter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.StringJoiner;
 
-public class InsertToSortedList<T extends Comparable<T>> implements Algorithm<Event, InsertToSortedList.Data<T>> {
+public class InsertToSortedList<T extends Comparable<T>>
+        implements Algorithm<Event, InsertToSortedList.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(List<T> array, T insertValue) {}
 
@@ -53,12 +54,13 @@ public class InsertToSortedList<T extends Comparable<T>> implements Algorithm<Ev
             }
         }
 
-        for(int i=right;i>=left;i--) {
-            arr.set(i+1, arr.get(i));
+        for (int i = right; i >= left; i--) {
+            arr.set(i + 1, arr.get(i));
         }
 
         arr.add(left, insertValue);
 
-        events.accept(new FinalStateEvent<T>(new ArrayList<T>(arr), insertValue, left, right, middle));
+        events.accept(
+                new FinalStateEvent<T>(new ArrayList<T>(arr), insertValue, left, right, middle));
     }
 }
