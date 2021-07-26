@@ -62,7 +62,6 @@ public class Main {
         graph.setEdge(3, 1);
         graph.setEdge(4, 3);
         graph.setEdge(4, 0);
-        
 
         final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
@@ -166,5 +165,3 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 }
-
-

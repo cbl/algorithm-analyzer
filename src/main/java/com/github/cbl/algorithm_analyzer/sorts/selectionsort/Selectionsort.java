@@ -9,7 +9,8 @@ import com.github.cbl.algorithm_analyzer.util.Comparator;
 
 import java.util.StringJoiner;
 
-public class Selectionsort<T extends Comparable<T>> implements Algorithm<Event, Selectionsort.Data<T>> {
+public class Selectionsort<T extends Comparable<T>>
+        implements Algorithm<Event, Selectionsort.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(T[] array) {}
 
@@ -18,11 +19,11 @@ public class Selectionsort<T extends Comparable<T>> implements Algorithm<Event, 
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
-            int [] colors = new int[array.length];
-            for(int j = 0; j < colors.length; j++){
+            int[] colors = new int[array.length];
+            for (int j = 0; j < colors.length; j++) {
                 colors[j] = -1;
             }
-            if(pos >= 0 && i >= 0){
+            if (pos >= 0 && i >= 0) {
                 colors[i] = 1;
                 colors[pos] = 2;
             }
@@ -35,17 +36,17 @@ public class Selectionsort<T extends Comparable<T>> implements Algorithm<Event, 
     }
     ;
 
-    public static record PartialStateEvent<T>(
-            T[] array, int pos, int i, String text) implements Event {
+    public static record PartialStateEvent<T>(T[] array, int pos, int i, String text)
+            implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
             sj.add(text);
-            int [] colors = new int[array.length];
-            for(int j = 0; j < colors.length; j++){
+            int[] colors = new int[array.length];
+            for (int j = 0; j < colors.length; j++) {
                 colors[j] = -1;
             }
-            if(pos >= 0 && i >= 0){
+            if (pos >= 0 && i >= 0) {
                 colors[i] = 1;
                 colors[pos] = 2;
             }
@@ -62,16 +63,13 @@ public class Selectionsort<T extends Comparable<T>> implements Algorithm<Event, 
         final ArrayWriter w = new ArrayWriter();
         int counter = 1;
 
-        for(int i = arr.length-1;i>0;i--){
+        for (int i = arr.length - 1; i > 0; i--) {
             int pos = i;
-            for(int j = 0; j < i; j++){
-                if(c.compare(arr[j], arr[pos]) > 0) pos = j;
+            for (int j = 0; j < i; j++) {
+                if (c.compare(arr[j], arr[pos]) > 0) pos = j;
             }
-            if(pos != i){
-                events.accept(
-                        new PartialStateEvent<T>(
-                                arr.clone(),
-                                pos,i, "Step " + counter));
+            if (pos != i) {
+                events.accept(new PartialStateEvent<T>(arr.clone(), pos, i, "Step " + counter));
                 counter++;
 
                 w.change(arr, pos, i);
@@ -79,11 +77,12 @@ public class Selectionsort<T extends Comparable<T>> implements Algorithm<Event, 
                         new FinalStateEvent<T>(
                                 arr.clone(),
                                 c.getComparisonsSnapshot(),
-                                w.getWritesSnapshot(),pos,i));
-
+                                w.getWritesSnapshot(),
+                                pos,
+                                i));
             }
         }
-        
+
         events.accept(new FinalStateEvent<T>(arr, c.getComparisons(), w.getWrites(), -1, -1));
     }
     ;
