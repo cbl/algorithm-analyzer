@@ -13,6 +13,8 @@
         <maven.compiler.target>16</maven.compiler.target>
         <maven.compiler.source>16</maven.compiler.source>
         <mainclass>com.github.cbl.algorithm_analyzer.Main</mainclass>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <build>
@@ -39,7 +41,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
@@ -65,7 +67,7 @@
                     </execution>
                 </executions>
 
-            </plugin> -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
