@@ -13,9 +13,9 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.ClosedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
-import com.github.cbl.algorithm_analyzer.hashing.ClosedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -40,14 +40,16 @@ public class Main {
     public static void closedHashTable() {
         int size = 11;
         EventConsumer<Event> ec = new GeneralEventConsumer();
-        ClosedHashTable.Hashing hashing = (int key, int p) -> {
-            return key % p;
-        };
-        ClosedHashTable.Probing probing = (int key, int j, int p) -> {
-            return (key % p) + j;
-        };
+        ClosedHashTable.Hashing hashing =
+                (int key, int p) -> {
+                    return key % p;
+                };
+        ClosedHashTable.Probing probing =
+                (int key, int j, int p) -> {
+                    return (key % p) + j;
+                };
         ClosedHashTable table = new ClosedHashTable(ec, size, hashing, probing);
-        table.resizeFactor = 3/2;
+        table.resizeFactor = 3 / 2;
         table.resizeAtOccupation = 0.9;
 
         table.insert(29);

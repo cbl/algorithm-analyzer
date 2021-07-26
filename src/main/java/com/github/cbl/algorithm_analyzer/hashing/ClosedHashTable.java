@@ -8,14 +8,13 @@ import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.lang.Math;
 
 public class ClosedHashTable implements HashTable {
     EventConsumer events;
     Value[] table;
     int size;
     int mod;
-    public double resizeFactor = 3/2;
+    public double resizeFactor = 3 / 2;
     public double resizeAtOccupation = 0.9;
     int occupied = 0;
 
@@ -33,13 +32,13 @@ public class ClosedHashTable implements HashTable {
     public static int nextPrime(int i) {
         int counter;
         i++;
-        while(true){
+        while (true) {
             int l = (int) Math.sqrt(i);
             counter = 0;
-            for(int j = 2; j <= l; j ++) {
-                if(i % j == 0) counter++;
+            for (int j = 2; j <= l; j++) {
+                if (i % j == 0) counter++;
             }
-            if(counter == 0) return i;
+            if (counter == 0) return i;
             else i++;
         }
     }
@@ -71,9 +70,9 @@ public class ClosedHashTable implements HashTable {
                 }
             }
 
-            sj.add(message+": " + insertedKey);
+            sj.add(message + ": " + insertedKey);
             sj.add("h(" + insertedKey + "): " + hash);
-            sj.add("ĥ(" + insertedKey + ", "+j+"): " + finalHash);
+            sj.add("ĥ(" + insertedKey + ", " + j + "): " + finalHash);
             sj.add("Collisions: " + collisions.toString());
             sj.add(TablePrinter.toString(t));
 
@@ -116,9 +115,9 @@ public class ClosedHashTable implements HashTable {
         do {
             i = probing.hash(key, j, this.size);
             j++;
-        } while(table[i].key != key && table[i].state != State.Empty);
+        } while (table[i].key != key && table[i].state != State.Empty);
 
-        if(table[i].state == State.Occupied) {
+        if (table[i].state == State.Occupied) {
             table[i].key = -1;
             table[i].state = State.Removed;
         } else {
@@ -146,20 +145,20 @@ public class ClosedHashTable implements HashTable {
             collisions.add(i);
             j++;
             i = probing.hash(key, j, this.size) % this.size;
-            if(table[i].state != State.Occupied && table[index].state == State.Occupied) {
+            if (table[i].state != State.Occupied && table[index].state == State.Occupied) {
                 index = i;
             }
         }
 
-        if(table[i].state == State.Occupied) {
+        if (table[i].state == State.Occupied) {
             System.out.println("Error: Occupied");
             return;
         } else {
-            if(table[i].state == State.Empty && occupied > resizeAtOccupation*this.size) {
+            if (table[i].state == State.Empty && occupied > resizeAtOccupation * this.size) {
                 resize();
                 insert(key);
             } else {
-                if(table[index].state == State.Empty) occupied++;
+                if (table[index].state == State.Empty) occupied++;
                 table[index].key = key;
                 table[index].state = State.Occupied;
             }
@@ -184,8 +183,8 @@ public class ClosedHashTable implements HashTable {
         table = new Value[this.size];
         for (int i = 0; i < this.size; i++) this.table[i] = new Value();
         this.occupied = 0;
-        for(int i=0;i<sizeOld;i++) {
-            if(oldTable[i].state == State.Occupied) {
+        for (int i = 0; i < sizeOld; i++) {
+            if (oldTable[i].state == State.Occupied) {
                 this.insert(oldTable[i].key);
             }
         }
