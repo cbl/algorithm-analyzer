@@ -13,8 +13,8 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
-import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -39,12 +39,14 @@ public class Main {
     public static void doubleHashTable() {
         int size = 11;
         EventConsumer<Event> ec = new GeneralEventConsumer();
-        DoubleHashTable.Hashing hashing = (int key) -> {
-            return key % 11;
-        };
-        DoubleHashTable.Hashing doubleHashing = (int key) -> {
-            return (1 + (key % (11 - 1)));
-        };
+        DoubleHashTable.Hashing hashing =
+                (int key) -> {
+                    return key % 11;
+                };
+        DoubleHashTable.Hashing doubleHashing =
+                (int key) -> {
+                    return (1 + (key % (11 - 1)));
+                };
         DoubleHashTable table = new DoubleHashTable(ec, size, hashing, doubleHashing);
 
         table.insert(29);
