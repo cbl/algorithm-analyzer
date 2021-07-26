@@ -12,9 +12,8 @@ import java.util.StringJoiner;
 /** Utility class for pretty-printing arrays */
 public class ArrayPrinter {
 
-    private static final Attribute[][]
-            COLORS = { // reference for ANSI 8 bit color codes:
-                       // https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit
+    private static final Attribute[][] COLORS = { // reference for ANSI 8 bit color codes:
+        // https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit
         {
             BLACK_TEXT(), BACK_COLOR(196), // 0 = red
         },
