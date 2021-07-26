@@ -25,18 +25,35 @@ import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.straightmergesort.StraightMergesort;
 import com.github.cbl.algorithm_analyzer.structures.BinarySearch;
+import com.github.cbl.algorithm_analyzer.structures.InsertToSortedList;
 import com.github.cbl.algorithm_analyzer.structures.Interpolation;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         Main.closedHashTable();
+    }
+
+    public static void sortedList() {
+        final Integer[] insertValues = {21, 25, 67, 32, 26, 50, 78, 40, 52, 66};
+        final List<Integer> array = new ArrayList<>();
+
+        final Algorithm<Event, InsertToSortedList.Data<Integer>> a = new InsertToSortedList<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        for (Integer value : insertValues) {
+            a.run(ec, new InsertToSortedList.Data<Integer>(array, value));
+        }
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void closedHashTable() {
