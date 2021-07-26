@@ -39,8 +39,9 @@ public class TravelingSalesman<V> implements Algorithm<Event, TravelingSalesman.
                 }
                 for (int c = 1; c < cost[row - 1].length; c++) {
                     table[row][c] = Integer.toString(cost[row - 1][c]);
-                    if (c == row - 1 && c > 1) {
-                        table[row - 1][c] += " (" + rout[c - 1].toString() + ")";
+                    System.out.println(c+"->"+(row-1));
+                    if (c-1 == row-1 && c > 1) {
+                        table[row][c] += " (" + rout[c-1].toString() + ")";
                     }
                 }
                 row++;
@@ -88,7 +89,6 @@ public class TravelingSalesman<V> implements Algorithm<Event, TravelingSalesman.
                 }
             }
 
-            events.accept(new FinalCostEvent<V>(data, deepClone(len), (V[]) rout));
             int min = Integer.MAX_VALUE;
             int minK = 0;
             for (int k = 0; k < n - 1; k++) {
