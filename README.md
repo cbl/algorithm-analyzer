@@ -34,6 +34,8 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
     -   [Dijkstra](#dijkstra)
     -   [Floyd–Warshall Algorithm](#floyd-warhsall)
     -   [Traveling Salesman (Rundreise)](#tsm)
+-   [Hash Tables](#hash-tables)
+    -   [Coalesced Hashtable](#coalesced-hash-table)
 -   [Runtime](#runtime)
 
 <a name="usage"></a>
@@ -196,7 +198,7 @@ See: [Countingsort](#countingsort)
 
 ![](./images/breath-first_search.png)
 
-<a name="dijkstra">
+<a name="dijkstra"></a>
 
 ### Dijkstra
 
@@ -204,18 +206,28 @@ See: [Countingsort](#countingsort)
 ![](./images/dijkstra_vertice_exists.png)
 ![](./images/dijkstra_next.png)
 
-<a name="floyd-warshall">
+<a name="floyd-warshall"></a>
 
 ### Floyd–Warshall Algorithm
 
 ![](./images/floyd-warshall.png)
 
-<a name="tsm">
+<a name="tsm"></a>
 
 ### Traveling Salesman (Rundreise)
 
 ![](./images/tsm-bitonic.png)
 ![](./images/tsm-output.png)
+
+<a name="hash-tables"></a>
+
+## Hash Tables
+
+<a name="coalesced-hash-table"></a>
+
+## Coalesced Hashtable
+
+![](./images/hash_coalesced_insert.png)
 
 <a name="runtime"></a>
 
