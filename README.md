@@ -33,6 +33,7 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
     -   [Breath-First Search (Breitensuche)](#breath-first-search)
     -   [Dijkstra](#dijkstra)
     -   [Floyd–Warshall Algorithm](#floyd-warhsall)
+    -   [Traveling Salesman (Rundreise)](#tsm)
 -   [Runtime](#runtime)
 
 <a name="usage"></a>
@@ -43,8 +44,8 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
 
 ### Requirements
 
-- JDK `16` or newer
-- Maven `3.8.x` or newer
+-   JDK `16` or newer
+-   Maven `3.8.x` or newer
 
 ### Setup
 
@@ -59,6 +60,7 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
 <a name="build"></a>
 
 ### Build
+
 Compile to run directly in the terminal:
 
 `mvn compile`
@@ -207,6 +209,13 @@ See: [Countingsort](#countingsort)
 ### Floyd–Warshall Algorithm
 
 ![](./images/floyd-warshall.png)
+
+<a name="tsm">
+
+### Traveling Salesman (Rundreise)
+
+![](./images/tsm-bitonic.png)
+![](./images/tsm-output.png)
 
 <a name="runtime"></a>
 
