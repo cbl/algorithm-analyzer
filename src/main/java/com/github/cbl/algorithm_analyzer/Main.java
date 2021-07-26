@@ -16,6 +16,7 @@ import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
+import com.github.cbl.algorithm_analyzer.sorts.mergesort.Mergesort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
@@ -205,6 +206,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Quicksort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void mergeSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, Mergesort.Data<Integer>> a = new Mergesort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Mergesort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
