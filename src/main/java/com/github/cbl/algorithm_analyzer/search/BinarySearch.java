@@ -20,12 +20,16 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             int[] colors = new int[array.length];
             Arrays.fill(colors, -1);
 
+            colors[left] = 2; // left index -> yellow
+            colors[right] = 3; // right index -> orange
+
             if (left <= right) { // search was successful
                 colors[middle] = 1; // found index -> green
 
                 sj.add(ArrayPrinter.toString(array, colors));
                 sj.add(String.format("Element %s was found at index %d", searchedValue, (middle + 1)));
             } else {
+                sj.add(ArrayPrinter.toString(array, colors));
                 sj.add(String.format("Element %s was not found!", searchedValue));
             }
 
@@ -42,15 +46,10 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             int[] colors = new int[array.length];
             Arrays.fill(colors, -1);
 
-            // left and right bounds -> yellow
-            colors[left] = 2;
-            colors[right] = 2;
+            colors[left] = 2; // left index -> yellow
+            colors[right] = 3; // right index -> orange
 
-            if (left == middle && right == middle) { // middle = left = right -> element wont be found
-                colors[middle] = 0; // red
-                sj.add(ArrayPrinter.toString(array, colors));
-            } else {
-                colors[middle] = 4; // middle index -> purple
+            colors[middle] = 4; // middle index -> purple
 
                 sj.add(ArrayPrinter.toString(array, colors));
 
@@ -60,7 +59,6 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
                 } else {
                     sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], middle + 2));
                 }
-            }
 
             return sj.toString();
         }
