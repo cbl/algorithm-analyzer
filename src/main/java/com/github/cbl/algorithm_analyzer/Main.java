@@ -5,6 +5,7 @@ import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
+import com.github.cbl.algorithm_analyzer.directAccess.interpolation.Interpolation;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
@@ -32,7 +33,7 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Main.tsm();
-        Main.coalescedHashTable();
+        Main.interpolation();
     }
 
     public static void coalescedHashTable() {
@@ -291,6 +292,18 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Selectionsort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void interpolation() {
+        Integer search = 33;
+        final Integer[] array = {10, 12, 14, 17, 19, 22, 25, 27, 29, 31, 32, 33, 38, 46};
+
+        final Algorithm<Event, Interpolation.Data> a = new Interpolation();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Interpolation.Data(array, search));
 
         ec.visitEvents(new LogEventVisitor());
     }
