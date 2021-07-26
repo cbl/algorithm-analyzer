@@ -5,7 +5,7 @@ import com.github.cbl.algorithm_analyzer.contracts.Event;
 import com.github.cbl.algorithm_analyzer.contracts.EventConsumer;
 import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
-import com.github.cbl.algorithm_analyzer.directAccess.interpolation.Interpolation;
+import com.github.cbl.algorithm_analyzer.structures.Interpolation;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
@@ -13,7 +13,11 @@ import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
+import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.ClosedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
+import com.github.cbl.algorithm_analyzer.structures.BinarySearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -32,8 +36,95 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        // Main.tsm();
-        Main.interpolation();
+        Main.closedHashTable();
+    }
+
+    public static void closedHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        ClosedHashTable.Hashing hashing =
+                (int key, int p) -> {
+                    return key % p;
+                };
+        ClosedHashTable.Probing probing =
+                (int key, int j, int p) -> {
+                    return (key % p) + j;
+                };
+        ClosedHashTable table = new ClosedHashTable(ec, size, hashing, probing);
+        table.resizeFactor = 3 / 2;
+        table.resizeAtOccupation = 0.9;
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+        table.remove(7);
+        table.insert(18);
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void doubleHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        DoubleHashTable.Hashing hashing =
+                (int key) -> {
+                    return key % 11;
+                };
+        DoubleHashTable.Hashing doubleHashing =
+                (int key) -> {
+                    return (1 + (key % (11 - 1)));
+                };
+        DoubleHashTable table = new DoubleHashTable(ec, size, hashing, doubleHashing);
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void brentHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        BrentHashTable.Hashing hashing =
+                (int key) -> {
+                    return key % 11;
+                };
+        BrentHashTable.Hashing doubleHashing =
+                (int key) -> {
+                    return (1 + (key % (11 - 1)));
+                };
+        BrentHashTable table = new BrentHashTable(ec, size, hashing, doubleHashing);
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void binarySearch() {
+        final Integer[] array = {21, 25, 32, 33, 26, 40, 52, 53, 57, 60, 65, 66, 67, 78};
+        final Integer searchedValue = 60;
+
+        final Algorithm<Event, BinarySearch.Data<Integer>> a = new BinarySearch<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new BinarySearch.Data<Integer>(array, searchedValue));
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void coalescedHashTable() {
@@ -146,19 +237,17 @@ public class Main {
     }
 
     public static void tiefenSuche() {
-        int size = 5;
-        String[] nodeNames = {"1", "2", "3", "4", "5"};
+        int size = 4;
+        String[] nodeNames = {"2", "1", "3", "4"};
         WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
-        graph.setEdge(1, 4);
-        graph.setEdge(1, 2);
-        graph.setEdge(2, 4);
+        graph.setEdge(1, 0);
+        graph.setEdge(0, 3);
+        graph.setEdge(0, 2);
+        graph.setEdge(2, 1);
         graph.setEdge(2, 3);
-        graph.setEdge(2, 0);
-        graph.setEdge(3, 3);
         graph.setEdge(3, 1);
-        graph.setEdge(4, 3);
-        graph.setEdge(4, 0);
+        graph.setEdge(3, 2);
 
         final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
         final EventConsumer<Event> ec = new GeneralEventConsumer();

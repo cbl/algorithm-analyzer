@@ -35,7 +35,9 @@ Everyone is welcome to contribute, please read the [contribution guideline](./.g
     -   [Floyd–Warshall Algorithm](#floyd-warhsall)
     -   [Traveling Salesman (Rundreise)](#tsm)
 -   [Hash Tables](#hash-tables)
-    -   [Coalesced Hashtable](#coalesced-hash-table)
+    -   [Closed Hash Table](#closed-hash-table)
+    -   [Brent Hash Table](#brent-hash-table)
+    -   [Coalesced Hash Table](#coalesced-hash-table)
 -   [Runtime](#runtime)
 
 <a name="usage"></a>
@@ -223,9 +225,23 @@ See: [Countingsort](#countingsort)
 
 ## Hash Tables
 
+<a name="closed-hash-table"></a>
+
+### Closed Hash Table
+
+![](./images/hash_closed_insert.png)
+![](./images/hash_closed_resize.png)
+![](./images/hash_closed_delete.png)
+
+<a name="brent-hash-table"></a>
+
+### Brent Hash Table
+
+![](./images/hash_brent_insert.png)
+
 <a name="coalesced-hash-table"></a>
 
-## Coalesced Hashtable
+### Coalesced Hash Table
 
 ![](./images/hash_coalesced_insert.png)
 
