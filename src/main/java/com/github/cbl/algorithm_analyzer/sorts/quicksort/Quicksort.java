@@ -36,9 +36,11 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
             int[] colors = new int[array.length];
             Arrays.fill(colors, -1);
 
-            for (int i = range.p; i <= range.q; i++) {
+            for (int i = range.p; i < range.q; i++) {
                 colors[i] = 1; // range -> green
             }
+
+            colors[range.q] = 2; // pivot -> yellow
 
             sj.add(ArrayPrinter.toString(array, colors));
             sj.add("Comparisons: " + comparisons);
@@ -64,14 +66,14 @@ public class Quicksort<T extends Comparable<T>> implements Algorithm<Event, Quic
     private void quicksort(
             T[] arr, int i, int j, Comparator c, ArrayWriter w, EventConsumer<Event> events) {
         if (i < j) {
-            var range = partition(arr, i, j, c, w, events);
-
             events.accept(
                     new PartialStateEvent<>(
                             arr.clone(),
                             new Range(i, j),
                             c.getComparisonsSnapshot(),
                             w.getWritesSnapshot()));
+
+            var range = partition(arr, i, j, c, w, events);
 
             quicksort(arr, i, range.p, c, w, events);
             quicksort(arr, range.q, j, c, w, events);
