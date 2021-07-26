@@ -46,18 +46,20 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             colors[left] = 2;
             colors[right] = 2;
 
-            if (left == middle && right == middle) {
-                colors[middle] = 0; // if middle = left = right: element wont be found -> red
+            if (left == middle && right == middle) { // middle = left = right -> element wont be found
+                colors[middle] = 0; // red
+                sj.add(ArrayPrinter.toString(array, colors));
             } else {
                 colors[middle] = 4; // middle index -> purple
-            }
 
-            sj.add(ArrayPrinter.toString(array, colors));
+                sj.add(ArrayPrinter.toString(array, colors));
 
-            if (array[middle].compareTo(searchedValue) > 0) {
-                sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
-            } else {
-                sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], (middle + 2)));
+                // print the next values of left or right:
+                if (array[middle].compareTo(searchedValue) > 0) {
+                    sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
+                } else {
+                    sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], middle + 2));
+                }
             }
 
             return sj.toString();
@@ -70,18 +72,18 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
         binarySearch(events, data.array(), data.searchedValue());
     }
 
-    private boolean binarySearch(EventConsumer<Event> events, T[] arr, T searchedValue) {
+    private void binarySearch(EventConsumer<Event> events, T[] arr, T searchedValue) {
         int left = 0;
         int right = arr.length - 1;
         int middle = 0;
 
         while (left <= right) {
-            middle = (int) Math.floor((left + right) / 2.0);
+            middle = (left + right) / 2;
 
             if (arr[middle].equals(searchedValue)) {
                 events.accept(new FinalStateEvent<T>(arr, searchedValue, left, right, middle));
 
-                return true;
+                return;
             }
 
             events.accept(new PartialStateEvent<T>(arr, searchedValue, left, right, middle));
@@ -95,6 +97,6 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
 
         events.accept(new FinalStateEvent<T>(arr, searchedValue, left, right, middle));
 
-        return false;
+        return;
     }
 }
