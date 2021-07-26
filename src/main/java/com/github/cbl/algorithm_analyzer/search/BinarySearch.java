@@ -51,14 +51,14 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
 
             colors[middle] = 4; // middle index -> purple
 
-                sj.add(ArrayPrinter.toString(array, colors));
+            sj.add(ArrayPrinter.toString(array, colors));
 
-                // print the next values of left or right:
-                if (array[middle].compareTo(searchedValue) > 0) {
-                    sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
-                } else {
-                    sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], middle + 2));
-                }
+            // print the next values of left or right:
+            if (array[middle].compareTo(searchedValue) > 0) {
+                sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
+            } else {
+                sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], middle + 2));
+            }
 
             return sj.toString();
         }
