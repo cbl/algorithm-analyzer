@@ -15,6 +15,7 @@ import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
+import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
@@ -121,15 +122,19 @@ public class Main {
     }
 
     public static void tiefenSuche() {
-        int size = 4;
-        String[] nodeNames = {"A", "B", "C", "D", "E"};
+        int size = 5;
+        String[] nodeNames = {"1", "2", "3", "4", "5"};
         WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
-        graph.setEdge(0, 3);
-        graph.setEdge(0, 2);
-        graph.setEdge(1, 3);
-        graph.setEdge(2, 1);
-        graph.setEdge(3, 2);
+        graph.setEdge(1, 4);
+        graph.setEdge(1, 2);
+        graph.setEdge(2, 4);
+        graph.setEdge(2, 3);
+        graph.setEdge(2, 0);
+        graph.setEdge(3, 3);
+        graph.setEdge(3, 1);
+        graph.setEdge(4, 3);
+        graph.setEdge(4, 0);
 
         final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
@@ -140,7 +145,7 @@ public class Main {
     }
 
     public static void bubbleSort() {
-        final Integer[] array = {6, 5, 4, 3, 2, 1};
+        final Integer[] array = {15, 48, 22, 34, 27, 35, 14};
 
         final Algorithm<Event, BubbleSort.Data<Integer>> a = new BubbleSort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
@@ -218,6 +223,17 @@ public class Main {
         Algorithm<Event, FloydWarshall.Data<Character>> alg = new FloydWarshall<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
         alg.run(ec, new FloydWarshall.Data<>(costs));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void selectionSort() {
+        final Integer[] array = {64, 25, 12, 22, 11};
+
+        final Algorithm<Event, Selectionsort.Data<Integer>> a = new Selectionsort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Selectionsort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
