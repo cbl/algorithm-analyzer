@@ -94,7 +94,5 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
         }
 
         events.accept(new FinalStateEvent<T>(arr, searchedValue, left, right, middle));
-
-        return;
     }
 }
