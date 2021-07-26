@@ -12,6 +12,7 @@ import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
+import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
@@ -27,7 +28,27 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Main.tsm();
-        Main.tsm2();
+        Main.coalescedHashTable();
+    }
+
+    public static void coalescedHashTable()
+    {
+        int mod = 10;
+        int reserved = 2;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        CoalescedHashTable table = new CoalescedHashTable(ec, mod, reserved);
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(2);
+        table.insert(39);
+        table.insert(8);
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void tsm() {
