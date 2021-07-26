@@ -13,6 +13,7 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.ClosedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 <<<<<<< HEAD
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
@@ -37,7 +38,35 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.doubleHashTable();
+        Main.closedHashTable();
+    }
+
+    public static void closedHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        ClosedHashTable.Hashing hashing =
+                (int key, int p) -> {
+                    return key % p;
+                };
+        ClosedHashTable.Probing probing =
+                (int key, int j, int p) -> {
+                    return (key % p) + j;
+                };
+        ClosedHashTable table = new ClosedHashTable(ec, size, hashing, probing);
+        table.resizeFactor = 3 / 2;
+        table.resizeAtOccupation = 0.9;
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+        table.remove(7);
+        table.insert(18);
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void doubleHashTable() {
