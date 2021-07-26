@@ -14,7 +14,11 @@ import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
+<<<<<<< HEAD
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
+=======
+import com.github.cbl.algorithm_analyzer.search.BinarySearch;
+>>>>>>> 1ec542ca1da7e2ff89dfc296dad6f652d128a248
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -80,6 +84,18 @@ public class Main {
         table.insert(30);
         table.insert(40);
         table.insert(11);
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void binarySearch() {
+        final Integer[] array = {21, 25, 32, 33, 26, 40, 52, 53, 57, 60, 65, 66, 67, 78};
+        final Integer searchedValue = 60;
+
+        final Algorithm<Event, BinarySearch.Data<Integer>> a = new BinarySearch<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new BinarySearch.Data<Integer>(array, searchedValue));
 
         ec.visitEvents(new LogEventVisitor());
     }
