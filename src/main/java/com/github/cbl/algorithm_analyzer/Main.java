@@ -31,8 +31,7 @@ public class Main {
         Main.coalescedHashTable();
     }
 
-    public static void coalescedHashTable()
-    {
+    public static void coalescedHashTable() {
         int mod = 10;
         int reserved = 2;
         EventConsumer<Event> ec = new GeneralEventConsumer();
