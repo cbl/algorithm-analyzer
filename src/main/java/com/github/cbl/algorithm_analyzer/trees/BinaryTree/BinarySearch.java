@@ -1,4 +1,4 @@
-package com.github.cbl.algorithm_analyzer.search;
+package com.github.cbl.algorithm_analyzer.trees.BinaryTree;
 
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;

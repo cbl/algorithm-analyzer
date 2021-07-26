@@ -14,11 +14,8 @@ import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
-<<<<<<< HEAD
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
-=======
-import com.github.cbl.algorithm_analyzer.search.BinarySearch;
->>>>>>> 1ec542ca1da7e2ff89dfc296dad6f652d128a248
+import com.github.cbl.algorithm_analyzer.trees.BinaryTree.BinarySearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -37,7 +34,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.doubleHashTable();
+        Main.binarySearch();
     }
 
     public static void doubleHashTable() {
