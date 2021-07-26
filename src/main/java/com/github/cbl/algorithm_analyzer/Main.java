@@ -13,6 +13,7 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -31,8 +32,29 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        // Main.tsm();
-        Main.coalescedHashTable();
+        Main.brentHashTable();
+    }
+
+    public static void brentHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        BrentHashTable.Hashing hashing = (int key) -> {
+            return key % 11;
+        };
+        BrentHashTable.Hashing doubleHashing = (int key) -> {
+            return (1+(key % (11-1)));
+        };
+        BrentHashTable table = new BrentHashTable(ec, size, hashing, doubleHashing);
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void coalescedHashTable() {
@@ -145,19 +167,17 @@ public class Main {
     }
 
     public static void tiefenSuche() {
-        int size = 5;
-        String[] nodeNames = {"1", "2", "3", "4", "5"};
+        int size = 4;
+        String[] nodeNames = {"2", "1", "3", "4"};
         WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
-        graph.setEdge(1, 4);
-        graph.setEdge(1, 2);
-        graph.setEdge(2, 4);
+        graph.setEdge(1, 0);
+        graph.setEdge(0, 3);
+        graph.setEdge(0, 2);
+        graph.setEdge(2, 1);
         graph.setEdge(2, 3);
-        graph.setEdge(2, 0);
-        graph.setEdge(3, 3);
         graph.setEdge(3, 1);
-        graph.setEdge(4, 3);
-        graph.setEdge(4, 0);
+        graph.setEdge(3, 2);
 
         final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
