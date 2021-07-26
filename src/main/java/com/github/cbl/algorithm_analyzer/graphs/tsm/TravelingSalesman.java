@@ -39,8 +39,8 @@ public class TravelingSalesman<V> implements Algorithm<Event, TravelingSalesman.
                 }
                 for (int c = 1; c < cost[row - 1].length; c++) {
                     table[row][c] = Integer.toString(cost[row - 1][c]);
-                    if (c-1 == row-1 && c > 1) {
-                        table[row][c] += " (" + rout[c-1].toString() + ")";
+                    if (c - 1 == row - 1 && c > 1) {
+                        table[row][c] += " (" + rout[c - 1].toString() + ")";
                     }
                 }
                 row++;
