@@ -114,7 +114,6 @@ public class TravelingSalesman<V> implements Algorithm<Event, TravelingSalesman.
         for (V u : g.getVertices().stream().sorted().toList()) v[x++] = u;
         int n = g.getVerticeCount();
         int i = n - 1;
-        System.out.println(Arrays.toString(rout));
         for (int j = n - 1; j >= 0; j--) {
             if (i == j) {
                 Collections.reverse(roundTrip);
