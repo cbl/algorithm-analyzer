@@ -15,11 +15,7 @@ import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.ClosedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
-<<<<<<< HEAD
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
-=======
-import com.github.cbl.algorithm_analyzer.search.BinarySearch;
->>>>>>> 1ec542ca1da7e2ff89dfc296dad6f652d128a248
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -28,6 +24,8 @@ import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.straightmergesort.StraightMergesort;
+import com.github.cbl.algorithm_analyzer.structures.BinarySearch;
+import com.github.cbl.algorithm_analyzer.structures.Interpolation;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
@@ -383,6 +381,18 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Selectionsort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void interpolation() {
+        Integer search = 33;
+        final Integer[] array = {10, 12, 14, 17, 19, 22, 25, 27, 29, 31, 32, 33, 38, 46};
+
+        final Algorithm<Event, Interpolation.Data> a = new Interpolation();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Interpolation.Data(array, search));
 
         ec.visitEvents(new LogEventVisitor());
     }
