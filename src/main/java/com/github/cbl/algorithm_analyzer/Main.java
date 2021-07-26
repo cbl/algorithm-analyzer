@@ -37,7 +37,7 @@ public class Main {
 
     public static void binarySearch() {
         final Integer[] array = {21, 25, 32, 33, 26, 40, 52, 53, 57, 60, 65, 66, 67, 78};
-        final int searchedValue = 60;
+        final Integer searchedValue = 60;
 
         final Algorithm<Event, BinarySearch.Data<Integer>> a = new BinarySearch<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();

@@ -12,7 +12,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
 
     public static record Data<T extends Comparable<T>>(T[] array, T searchedValue) {}
 
-    public static record FinalStateEvent<T>(T[] array, int left, int right, int middle) implements Event {
+    public static record FinalStateEvent<T>(T[] array, T searchedValue, int left, int right, int middle) implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
@@ -22,16 +22,18 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
 
             if (left <= right) { // search was successful
                 colors[middle] = 1; // found index -> green
+
                 sj.add(ArrayPrinter.toString(array, colors));
+                sj.add(String.format("Element %s was found at index %d", searchedValue, (middle + 1)));
             } else {
-                sj.add("Element was not found!");
+                sj.add(String.format("Element %s was not found!", searchedValue));
             }
 
             return sj.toString();
         }
     }
 
-    public static record PartialStateEvent<T>(T[] array, int left, int right, int middle)
+    public static record PartialStateEvent<T extends Comparable<T>>(T[] array, T searchedValue, int left, int right, int middle)
             implements Event {
         @Override
         public String toString() {
@@ -45,12 +47,18 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             colors[right] = 2;
 
             if (left == middle && right == middle) {
-                colors[middle] = 0; // middle -> red
+                colors[middle] = 0; // if middle = left = right: element wont be found -> red
             } else {
-                colors[middle] = 4; // middle -> purple
+                colors[middle] = 4; // middle index -> purple
             }
 
             sj.add(ArrayPrinter.toString(array, colors));
+
+            if (array[middle].compareTo(searchedValue) > 0) {
+                sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
+            } else {
+                sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], (middle + 2)));
+            }
 
             return sj.toString();
         }
@@ -71,12 +79,12 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             middle = (int) Math.floor((left + right) / 2.0);
 
             if (arr[middle].equals(searchedValue)) {
-                events.accept(new FinalStateEvent<T>(arr, left, right, middle));
+                events.accept(new FinalStateEvent<T>(arr, searchedValue, left, right, middle));
 
                 return true;
             }
 
-            events.accept(new PartialStateEvent<T>(arr, left, right, middle));
+            events.accept(new PartialStateEvent<T>(arr, searchedValue, left, right, middle));
 
             if (arr[middle].compareTo(searchedValue) > 0) {
                 right = middle - 1;
@@ -85,7 +93,7 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
             }
         }
 
-        events.accept(new FinalStateEvent<T>(arr, left, right, middle));
+        events.accept(new FinalStateEvent<T>(arr, searchedValue, left, right, middle));
 
         return false;
     }
