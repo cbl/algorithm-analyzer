@@ -8,11 +8,13 @@ import com.github.cbl.algorithm_analyzer.util.ArrayPrinter;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
-public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, BinarySearch.Data<T>> {
+public class BinarySearch<T extends Comparable<T>>
+        implements Algorithm<Event, BinarySearch.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(T[] array, T searchedValue) {}
 
-    public static record FinalStateEvent<T>(T[] array, T searchedValue, int left, int right, int middle) implements Event {
+    public static record FinalStateEvent<T>(
+            T[] array, T searchedValue, int left, int right, int middle) implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
@@ -27,7 +29,9 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
                 colors[middle] = 1; // found index -> green
 
                 sj.add(ArrayPrinter.toString(array, colors));
-                sj.add(String.format("Element %s was found at index %d", searchedValue, (middle + 1)));
+                sj.add(
+                        String.format(
+                                "Element %s was found at index %d", searchedValue, (middle + 1)));
             } else {
                 sj.add(ArrayPrinter.toString(array, colors));
                 sj.add(String.format("Element %s was not found!", searchedValue));
@@ -37,8 +41,8 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
         }
     }
 
-    public static record PartialStateEvent<T extends Comparable<T>>(T[] array, T searchedValue, int left, int right, int middle)
-            implements Event {
+    public static record PartialStateEvent<T extends Comparable<T>>(
+            T[] array, T searchedValue, int left, int right, int middle) implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
@@ -55,9 +59,15 @@ public class BinarySearch<T extends Comparable<T>> implements Algorithm<Event, B
 
             // print the next values of left or right:
             if (array[middle].compareTo(searchedValue) > 0) {
-                sj.add(String.format("%s is smaller than %s, new right index will be %d", searchedValue, array[middle], middle));
+                sj.add(
+                        String.format(
+                                "%s is smaller than %s, new right index will be %d",
+                                searchedValue, array[middle], middle));
             } else {
-                sj.add(String.format("%s is greater than %s, new left index will be %d", searchedValue, array[middle], middle + 2));
+                sj.add(
+                        String.format(
+                                "%s is greater than %s, new left index will be %d",
+                                searchedValue, array[middle], middle + 2));
             }
 
             return sj.toString();
