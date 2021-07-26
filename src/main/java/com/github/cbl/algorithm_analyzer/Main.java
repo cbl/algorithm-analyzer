@@ -15,7 +15,6 @@ import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
-import com.github.cbl.algorithm_analyzer.trees.BinaryTree.BinarySearch;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
@@ -25,6 +24,7 @@ import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.straightmergesort.StraightMergesort;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
+import com.github.cbl.algorithm_analyzer.trees.BinaryTree.BinarySearch;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
