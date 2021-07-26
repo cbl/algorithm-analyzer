@@ -13,6 +13,7 @@ import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.BrentHashTable;
+import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
@@ -32,7 +33,29 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.brentHashTable();
+        Main.doubleHashTable();
+    }
+
+    public static void doubleHashTable() {
+        int size = 11;
+        EventConsumer<Event> ec = new GeneralEventConsumer();
+        DoubleHashTable.Hashing hashing = (int key) -> {
+            return key % 11;
+        };
+        DoubleHashTable.Hashing doubleHashing = (int key) -> {
+            return (1 + (key % (11 - 1)));
+        };
+        DoubleHashTable table = new DoubleHashTable(ec, size, hashing, doubleHashing);
+
+        table.insert(29);
+        table.insert(12);
+        table.insert(7);
+        table.insert(19);
+        table.insert(30);
+        table.insert(40);
+        table.insert(11);
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void brentHashTable() {
