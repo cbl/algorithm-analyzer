@@ -14,6 +14,7 @@ import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
 import com.github.cbl.algorithm_analyzer.graphs.tsm.TravelingSalesman;
 import com.github.cbl.algorithm_analyzer.hashing.CoalescedHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
+import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
@@ -171,6 +172,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new BubbleSort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void countingSort() {
+        final Integer[] array = {2, 4, 2, 1, 1, 4, 2, 1, 4, 2};
+
+        final Algorithm<Event, Countingsort.Data<Integer>> a = new Countingsort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Countingsort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
