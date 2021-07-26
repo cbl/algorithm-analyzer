@@ -114,7 +114,8 @@ public class Main {
     public static void straightMergesort() {
         final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
 
-        final Algorithm<Event, StraightMergesort.Data<Integer>> a = new StraightMergesort<Integer>();
+        final Algorithm<Event, StraightMergesort.Data<Integer>> a =
+                new StraightMergesort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new StraightMergesort.Data<>(array));
