@@ -8,6 +8,7 @@ import com.github.cbl.algorithm_analyzer.contracts.WeightFreeGraph;
 import com.github.cbl.algorithm_analyzer.graphs.AdjacentMatrixGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph;
 import com.github.cbl.algorithm_analyzer.graphs.LinkedGraph.Edge;
+import com.github.cbl.algorithm_analyzer.graphs.breath_first.BreathFirst;
 import com.github.cbl.algorithm_analyzer.graphs.deepsearch.Deepsearch;
 import com.github.cbl.algorithm_analyzer.graphs.dijkstra.Dijkstra;
 import com.github.cbl.algorithm_analyzer.graphs.floydwarshall.FloydWarshall;
@@ -267,6 +268,30 @@ public class Main {
 
         ec.visitEvents(new LogEventVisitor());
     }
+    public static void breathFirst() {
+        String start = "v1";
+        Collection<Edge<String, Integer>> edges =
+                Set.of(
+                        Edge.of("v1", "v2", 7),
+                        Edge.of("v1", "v3", 4),
+                        Edge.of("v1", "v4", 2),
+                        Edge.of("v2", "v3", 3),
+                        Edge.of("v2", "v5", 3),
+                        Edge.of("v3", "v4", 1),
+                        Edge.of("v3", "v5", 5),
+                        Edge.of("v4", "v5", 8));
+        Graph<String, Integer> graph = new LinkedGraph<>(edges);
+        for (Edge<String, Integer> e : edges) {
+            graph.setEdge(e.to(), e.from(), e.weight());
+        }
+
+        final Algorithm<Event, BreathFirst.Data> a = new BreathFirst();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new BreathFirst.Data<String>(graph, start));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
 
     public static void tiefenSuche() {
         int size = 4;
@@ -285,17 +310,6 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Deepsearch.Data(graph, nodeNames));
-
-        ec.visitEvents(new LogEventVisitor());
-    }
-
-    public static void insertionSort() {
-        final Integer[] array = {15, 48, 22, 34, 27, 35, 14};
-
-        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
-        final EventConsumer<Event> ec = new GeneralEventConsumer();
-
-        a.run(ec, new InsertionSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
@@ -427,9 +441,20 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
+    public static void insertionSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new InsertionSort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
     public static void interpolation() {
-        Integer search = 33;
-        final Integer[] array = {10, 12, 14, 17, 19, 22, 25, 27, 29, 31, 32, 33, 38, 46};
+        Integer search = 9;
+        final Integer[] array = {1, 9, 13, 16, 18, 19, 20, 22, 23};
 
         final Algorithm<Event, Interpolation.Data> a = new Interpolation();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
