@@ -1,4 +1,4 @@
-package com.github.cbl.algorithm_analyzer.structures;
+package com.github.cbl.algorithm_analyzer.structures.interpolation;
 
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
@@ -131,12 +131,6 @@ public class Interpolation implements Algorithm<Event, Interpolation.Data> {
         events.accept(
                 new PartialStateEvent(
                         arr, c.getComparisons(), estimate, estimate, estimate, "Summary: "));
-
-        // events.accept(
-        //         new PartialStateEvent<T>(
-        //                arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot()));
-
-        // events.accept(new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites()));
     }
     ;
 }
