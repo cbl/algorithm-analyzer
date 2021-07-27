@@ -62,7 +62,6 @@ public class Main {
         table.insert(12);
         table.insert(78);
 
-
         ec.visitEvents(new LogEventVisitor());
     }
 
