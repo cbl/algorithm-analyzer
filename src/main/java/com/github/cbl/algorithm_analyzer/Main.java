@@ -19,6 +19,7 @@ import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
+import com.github.cbl.algorithm_analyzer.sorts.insertionsort.InsertionSort;
 import com.github.cbl.algorithm_analyzer.sorts.mergesort.Mergesort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
@@ -36,7 +37,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.closedHashTable();
+        Main.insertionSort();;
     }
 
     public static void closedHashTable() {
@@ -381,6 +382,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Selectionsort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void insertionSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new InsertionSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
