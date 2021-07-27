@@ -238,19 +238,18 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
-    public static void breathFirst()
-    {
+    public static void breathFirst() {
         String start = "v1";
-        Collection<Edge<String, Integer>> edges = Set.of(
-            Edge.of("v1", "v2", 7),
-            Edge.of("v1", "v3", 4),
-            Edge.of("v1", "v4", 2),
-            Edge.of("v2", "v3", 3),
-            Edge.of("v2", "v5", 3),
-            Edge.of("v3", "v4", 1),
-            Edge.of("v3", "v5", 5),
-            Edge.of("v4", "v5", 8)
-        );
+        Collection<Edge<String, Integer>> edges =
+                Set.of(
+                        Edge.of("v1", "v2", 7),
+                        Edge.of("v1", "v3", 4),
+                        Edge.of("v1", "v4", 2),
+                        Edge.of("v2", "v3", 3),
+                        Edge.of("v2", "v5", 3),
+                        Edge.of("v3", "v4", 1),
+                        Edge.of("v3", "v5", 5),
+                        Edge.of("v4", "v5", 8));
         Graph<String, Integer> graph = new LinkedGraph<>(edges);
         for (Edge<String, Integer> e : edges) {
             graph.setEdge(e.to(), e.from(), e.weight());

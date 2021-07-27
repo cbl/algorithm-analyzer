@@ -7,11 +7,10 @@ import com.github.cbl.algorithm_analyzer.contracts.Graph;
 import com.github.cbl.algorithm_analyzer.contracts.Graph.NoEdgeException;
 import com.github.cbl.algorithm_analyzer.util.TablePrinter;
 
-import java.util.StringJoiner;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 public class BreathFirst<V> implements Algorithm<Event, BreathFirst.Data<V>> {
 
@@ -20,8 +19,8 @@ public class BreathFirst<V> implements Algorithm<Event, BreathFirst.Data<V>> {
     public static record Data<V>(Graph<V, Integer> graph, V start) {}
     ;
 
-    public static record FinalTimesEvent<V>(
-            Graph<V, Integer> graph, State<V> state, V start) implements Event {
+    public static record FinalTimesEvent<V>(Graph<V, Integer> graph, State<V> state, V start)
+            implements Event {
         @Override
         public String toString() {
 
@@ -69,9 +68,9 @@ public class BreathFirst<V> implements Algorithm<Event, BreathFirst.Data<V>> {
         Graph<V, Integer> g = data.graph();
         V start = data.start();
         State<V> state = new State<V>();
-        
-        for(V u : g.getVertices()) {
-            if(u == start) continue;
+
+        for (V u : g.getVertices()) {
+            if (u == start) continue;
             state.isKnown.put(u, false);
             state.distance.put(u, INFINITY);
             state.previous.put(u, null);
@@ -84,12 +83,12 @@ public class BreathFirst<V> implements Algorithm<Event, BreathFirst.Data<V>> {
         q.add(start);
 
         try {
-            while(!q.isEmpty()) {
+            while (!q.isEmpty()) {
                 V u = q.poll();
-                for(V v : g.getVertices().stream().sorted().toList()) {
-                    if(!g.hasEdge(u, v)) continue;
-                    if(!state.isKnown.get(v)) {
-                        state.distance.put(v, state.distance.get(u)+g.getEdge(u, v));
+                for (V v : g.getVertices().stream().sorted().toList()) {
+                    if (!g.hasEdge(u, v)) continue;
+                    if (!state.isKnown.get(v)) {
+                        state.distance.put(v, state.distance.get(u) + g.getEdge(u, v));
                         state.previous.put(v, u);
                         state.isKnown.put(v, true);
                         q.add(v);
@@ -97,7 +96,7 @@ public class BreathFirst<V> implements Algorithm<Event, BreathFirst.Data<V>> {
                 }
             }
             events.accept(new FinalTimesEvent(g, state.clone(), start));
-        } catch(NoEdgeException e) {
+        } catch (NoEdgeException e) {
             System.out.println("Error: Missing edge");
         }
     }
