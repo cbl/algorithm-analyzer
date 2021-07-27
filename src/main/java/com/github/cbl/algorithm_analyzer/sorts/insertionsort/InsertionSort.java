@@ -19,7 +19,7 @@ public class InsertionSort<T extends Comparable<T>>
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
-            if(text != null) sj.add(text);
+            if (text != null) sj.add(text);
             sj.add(ArrayPrinter.toString(array));
             sj.add("Comparisons: " + comparisons);
             sj.add("Writes: " + writes);
@@ -45,9 +45,10 @@ public class InsertionSort<T extends Comparable<T>>
             w.write(arr, k, tmp);
             events.accept(
                     new PartialStateEvent<T>(
-                            arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot(),null));
+                            arr.clone(), c.getComparisonsSnapshot(), w.getWritesSnapshot(), null));
         }
 
-        events.accept(new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites(), "Final result: "));
+        events.accept(
+                new PartialStateEvent<T>(arr, c.getComparisons(), w.getWrites(), "Final result: "));
     }
 }
