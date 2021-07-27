@@ -41,7 +41,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.radixSort();
+        Main.floydWarshall();
     }
 
     public static void sortedList() {
