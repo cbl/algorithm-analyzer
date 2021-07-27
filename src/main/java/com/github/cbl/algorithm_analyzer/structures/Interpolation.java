@@ -1,4 +1,4 @@
-package com.github.cbl.algorithm_analyzer.structures.interpolation;
+package com.github.cbl.algorithm_analyzer.structures;
 
 import com.github.cbl.algorithm_analyzer.contracts.Algorithm;
 import com.github.cbl.algorithm_analyzer.contracts.Event;
