@@ -9,8 +9,7 @@ import com.github.cbl.algorithm_analyzer.util.Comparator;
 
 import java.util.StringJoiner;
 
-public class Radixsort<T extends Comparable<T>>
-        implements Algorithm<Event, Radixsort.Data<T>> {
+public class Radixsort<T extends Comparable<T>> implements Algorithm<Event, Radixsort.Data<T>> {
 
     public static record Data<T extends Comparable<T>>(T[] array, int amount) {}
 
@@ -35,12 +34,11 @@ public class Radixsort<T extends Comparable<T>>
     }
     ;
 
-    public static record FinalStateEvent<T>(
-            T[] array,  Integer number) implements Event {
+    public static record FinalStateEvent<T>(T[] array, Integer number) implements Event {
         @Override
         public String toString() {
             final StringJoiner sj = new StringJoiner("\n");
-            if(number > 0) sj.add("Array A nach pruefen der Stelle: " + number);
+            if (number > 0) sj.add("Array A nach pruefen der Stelle: " + number);
             else sj.add("Finales Ergebnis: ");
             sj.add(ArrayPrinter.toString(array));
             sj.add("\n\n");
@@ -56,20 +54,16 @@ public class Radixsort<T extends Comparable<T>>
         final Comparator c = new Comparator();
         final ArrayWriter w = new ArrayWriter();
 
-        for(int k = d-1; k >= 0; k--){
+        for (int k = d - 1; k >= 0; k--) {
             countingsort(arr, d, k, w, events);
 
-            events.accept(
-            new FinalStateEvent<T>(
-                    arr.clone(), k+1));
+            events.accept(new FinalStateEvent<T>(arr.clone(), k + 1));
         }
-        events.accept(
-            new FinalStateEvent<T>(
-                    arr, 0));
+        events.accept(new FinalStateEvent<T>(arr, 0));
     }
     ;
 
-    public void countingsort(T[] arr, int d, int k,  ArrayWriter w, EventConsumer<Event> events) {
+    public void countingsort(T[] arr, int d, int k, ArrayWriter w, EventConsumer<Event> events) {
         Integer[] arra = (Integer[]) arr;
         Integer[] arrc = new Integer[d];
         Integer[] arrb = new Integer[arra.length];
@@ -85,7 +79,7 @@ public class Radixsort<T extends Comparable<T>>
         for (int j = 0; j < arra.length; j++) {
             String number1 = Integer.toString(arra[j]);
             char char1 = number1.charAt(k);
-            w.set(arrc, char1-49, (arrc[char1-49]) + 1);
+            w.set(arrc, char1 - 49, (arrc[char1 - 49]) + 1);
         }
 
         for (int i = 1; i < d; i++) {
@@ -93,7 +87,10 @@ public class Radixsort<T extends Comparable<T>>
         }
         events.accept(
                 new PartialStateEvent<T>(
-                        arrb.clone(), arrc.clone(), null, "Array nach Auszahelen der Hauefigkeit:"));
+                        arrb.clone(),
+                        arrc.clone(),
+                        null,
+                        "Array nach Auszahelen der Hauefigkeit:"));
 
         int step = 0;
         for (int j = arra.length - 1; j >= 0; j--) {
@@ -102,8 +99,8 @@ public class Radixsort<T extends Comparable<T>>
             String number1 = Integer.toString(arra[j]);
             char char1 = number1.charAt(k);
 
-            w.set(arrb, arrc[char1-49]-1, arra[j]);
-            w.set(arrc, char1-49, (arrc[char1-49]) - 1);
+            w.set(arrb, arrc[char1 - 49] - 1, arra[j]);
+            w.set(arrc, char1 - 49, (arrc[char1 - 49]) - 1);
 
             events.accept(new PartialStateEvent<T>(arrb.clone(), arrc.clone(), step, null));
         }

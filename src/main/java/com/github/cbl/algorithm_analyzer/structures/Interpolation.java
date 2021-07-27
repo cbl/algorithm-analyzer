@@ -99,7 +99,7 @@ public class Interpolation implements Algorithm<Event, Interpolation.Data> {
                                             + arr[estimate]
                                             + ". The new right index is: "
                                             + right));
-                                            right = estimate - 1;
+                    right = estimate - 1;
                 } else if (c.compare(arr[estimate], searched) < 0) {
                     events.accept(
                             new PartialStateEvent(
@@ -112,7 +112,7 @@ public class Interpolation implements Algorithm<Event, Interpolation.Data> {
                                             + arr[estimate]
                                             + ". The new left index is: "
                                             + left));
-                                            left = estimate + 1;
+                    left = estimate + 1;
                 }
             }
         }

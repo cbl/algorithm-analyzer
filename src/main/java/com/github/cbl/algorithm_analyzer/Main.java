@@ -62,7 +62,6 @@ public class Main {
         table.insert(12);
         table.insert(78);
 
-
         ec.visitEvents(new LogEventVisitor());
     }
 
@@ -370,7 +369,7 @@ public class Main {
 
     public static void interpolation() {
         Integer search = 9;
-        final Integer[] array = {1,9,13,16,18,19,20,22,23};
+        final Integer[] array = {1, 9, 13, 16, 18, 19, 20, 22, 23};
 
         final Algorithm<Event, Interpolation.Data> a = new Interpolation();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
