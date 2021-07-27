@@ -284,17 +284,6 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
-    public static void insertionSort() {
-        final Integer[] array = {15, 48, 22, 34, 27, 35, 14};
-
-        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
-        final EventConsumer<Event> ec = new GeneralEventConsumer();
-
-        a.run(ec, new InsertionSort.Data<>(array));
-
-        ec.visitEvents(new LogEventVisitor());
-    }
-
     public static void bubbleSort() {
         final Integer[] array = {15, 48, 22, 34, 27, 35, 14};
 
