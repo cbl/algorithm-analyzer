@@ -21,6 +21,7 @@ import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
 import com.github.cbl.algorithm_analyzer.sorts.mergesort.Mergesort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
+import com.github.cbl.algorithm_analyzer.sorts.radixsort.Radixsort;
 import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.straightmergesort.StraightMergesort;
@@ -36,7 +37,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.closedHashTable();
+        Main.radixSort();
     }
 
     public static void closedHashTable() {
@@ -54,15 +55,13 @@ public class Main {
         table.resizeFactor = 3 / 2;
         table.resizeAtOccupation = 0.9;
 
-        table.insert(29);
+        table.insert(38);
+        table.insert(45);
+        table.insert(16);
+        table.insert(60);
         table.insert(12);
-        table.insert(7);
-        table.insert(19);
-        table.insert(30);
-        table.insert(40);
-        table.insert(11);
-        table.remove(7);
-        table.insert(18);
+        table.insert(78);
+
 
         ec.visitEvents(new LogEventVisitor());
     }
@@ -100,17 +99,16 @@ public class Main {
                 };
         BrentHashTable.Hashing doubleHashing =
                 (int key) -> {
-                    return (1 + (key % (11 - 1)));
+                    return (1 + (key % (9)));
                 };
         BrentHashTable table = new BrentHashTable(ec, size, hashing, doubleHashing);
 
-        table.insert(29);
+        table.insert(38);
+        table.insert(45);
+        table.insert(16);
+        table.insert(60);
         table.insert(12);
-        table.insert(7);
-        table.insert(19);
-        table.insert(30);
-        table.insert(40);
-        table.insert(11);
+        table.insert(78);
 
         ec.visitEvents(new LogEventVisitor());
     }
@@ -175,34 +173,16 @@ public class Main {
     public static void tsm2() {
         Collection<Edge<Integer, Integer>> edges =
                 Set.of(
-                        Edge.of(0, 1, 5),
-                        Edge.of(0, 2, 2),
-                        Edge.of(0, 3, 3),
-                        Edge.of(0, 4, 5),
-                        Edge.of(0, 5, 5),
-                        Edge.of(0, 6, 6),
-                        Edge.of(0, 7, 8),
-                        Edge.of(1, 2, 3),
-                        Edge.of(1, 3, 6),
-                        Edge.of(1, 4, 10),
-                        Edge.of(1, 5, 8),
-                        Edge.of(1, 6, 6),
-                        Edge.of(1, 7, 10),
-                        Edge.of(2, 3, 3),
-                        Edge.of(2, 4, 6),
-                        Edge.of(2, 5, 5),
-                        Edge.of(2, 6, 4),
-                        Edge.of(2, 7, 7),
-                        Edge.of(3, 4, 3),
-                        Edge.of(3, 5, 2),
-                        Edge.of(3, 6, 4),
-                        Edge.of(3, 7, 5),
-                        Edge.of(4, 5, 2),
-                        Edge.of(4, 6, 6),
-                        Edge.of(4, 7, 3),
-                        Edge.of(5, 6, 4),
-                        Edge.of(5, 7, 2),
-                        Edge.of(6, 7, 4));
+                        Edge.of(0, 1, 4),
+                        Edge.of(0, 2, 6),
+                        Edge.of(0, 3, 7),
+                        Edge.of(0, 4, 12),
+                        Edge.of(1, 2, 5),
+                        Edge.of(1, 3, 4),
+                        Edge.of(1, 4, 8),
+                        Edge.of(2, 3, 4),
+                        Edge.of(2, 4, 11),
+                        Edge.of(3, 4, 8));
         Graph<Integer, Integer> graph = new LinkedGraph<>(edges);
         for (Edge<Integer, Integer> e : edges) {
             graph.setEdge(e.to(), e.from(), e.weight());
@@ -220,13 +200,17 @@ public class Main {
         Graph<Character, Integer> costs =
                 new LinkedGraph<>(
                         Set.of(
-                                Edge.of('A', 'B', 100),
-                                Edge.of('A', 'C', 50),
-                                Edge.of('B', 'C', 100),
-                                Edge.of('B', 'D', 100),
-                                Edge.of('B', 'E', 250),
-                                Edge.of('C', 'E', 250),
-                                Edge.of('D', 'E', 50)));
+                                Edge.of('A', 'B', 2),
+                                Edge.of('A', 'C', 9),
+                                Edge.of('A', 'D', 8),
+                                Edge.of('B', 'C', 6),
+                                Edge.of('B', 'D', 5),
+                                Edge.of('B', 'E', 3),
+                                Edge.of('C', 'B', 1),
+                                Edge.of('C', 'E', 1),
+                                Edge.of('D', 'C', 1),
+                                Edge.of('E', 'D', 1),
+                                Edge.of('E', 'C', 4)));
 
         final Algorithm<Event, Dijkstra.Data<Character>> a = new Dijkstra<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
@@ -238,15 +222,15 @@ public class Main {
 
     public static void tiefenSuche() {
         int size = 4;
-        String[] nodeNames = {"2", "1", "3", "4"};
+        String[] nodeNames = {"1", "2", "3", "4"};
         WeightFreeGraph<Integer> graph = new AdjacentMatrixGraph(size);
 
-        graph.setEdge(1, 0);
+        graph.setEdge(0, 1);
         graph.setEdge(0, 3);
-        graph.setEdge(0, 2);
-        graph.setEdge(2, 1);
-        graph.setEdge(2, 3);
-        graph.setEdge(3, 1);
+        graph.setEdge(1, 0);
+        graph.setEdge(1, 3);
+        graph.setEdge(1, 2);
+        graph.setEdge(2, 0);
         graph.setEdge(3, 2);
 
         final Algorithm<Event, Deepsearch.Data> a = new Deepsearch();
@@ -291,7 +275,7 @@ public class Main {
     }
 
     public static void quickSort() {
-        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+        final Integer[] array = {8, 7, 4, 3, 6, 5, 2};
 
         final Algorithm<Event, Quicksort.Data<Integer>> a = new Quicksort<Integer>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
@@ -340,16 +324,15 @@ public class Main {
         EventConsumer<Event> ec = new GeneralEventConsumer();
         t.onEvent(ec);
 
-        t.insert(4);
-        t.insert(2);
-        t.insert(5);
-        t.insert(1);
         t.insert(3);
+        t.insert(1);
+        t.insert(8);
+        t.insert(2);
         t.insert(6);
+        t.insert(9);
+        t.insert(7);
+        t.remove(1);
         t.insert(10);
-        t.insert(15);
-        t.remove(2);
-        t.insert(13);
         t.remove(3);
 
         ec.visitEvents(new LogEventVisitor());
@@ -393,6 +376,18 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Interpolation.Data(array, search));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void radixSort() {
+        int amountNumbers = 3;
+        final Integer[] array = {313, 322, 113, 223, 213, 132};
+
+        final Algorithm<Event, Radixsort.Data<Integer>> a = new Radixsort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new Radixsort.Data<>(array, amountNumbers));
 
         ec.visitEvents(new LogEventVisitor());
     }
