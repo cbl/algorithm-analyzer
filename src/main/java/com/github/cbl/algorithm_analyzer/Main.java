@@ -268,6 +268,7 @@ public class Main {
 
         ec.visitEvents(new LogEventVisitor());
     }
+
     public static void breathFirst() {
         String start = "v1";
         Collection<Edge<String, Integer>> edges =
