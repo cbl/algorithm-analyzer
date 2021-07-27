@@ -396,6 +396,17 @@ public class Main {
         ec.visitEvents(new LogEventVisitor());
     }
 
+    public static void insertionSort() {
+        final Integer[] array = {20, 54, 28, 31, 5, 24, 39, 14, 1, 15};
+
+        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new InsertionSort.Data<>(array));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
     public static void interpolation() {
         Integer search = 9;
         final Integer[] array = {1, 9, 13, 16, 18, 19, 20, 22, 23};
