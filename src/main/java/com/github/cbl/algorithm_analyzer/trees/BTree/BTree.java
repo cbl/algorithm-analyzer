@@ -55,6 +55,7 @@ public class BTree<T> {
      ****************************/
 
     private final Comparator<T> comparator;
+
     private final int m;
     private Block<T> root = new TreeBlock();
     private ArrayWriter w = new ArrayWriter();
@@ -86,20 +87,19 @@ public class BTree<T> {
         Block<T> el = BTree.this.root;
         Returninformation info = BTree.this.searchBlock(BTree.this.root, value);
         el = info.el();
-        if(info.succes())System.out.println("Element already exists");
-        else{
+        if (info.succes()) System.out.println("Element already exists");
+        else {
             BTree.this.insertBlock(info.el(), value, null);
-            while(info.el().full() > 2*BTree.this.m){
+            while (info.el().full() > 2 * BTree.this.m) {
                 DivideBlockInfo divideInfo = BTree.this.divideBlock(info.el());
                 Block<T> nextnextEl = el.parent();
-                if(nextnextEl.empty()){
+                if (nextnextEl.empty()) {
                     BTree.this.root = new TreeBlock();
                     BTree.this.root.values()[0] = divideInfo.wert();
                     el = BTree.this.root.children()[0];
                     divideInfo.setEl(BTree.this.root.children()[1]);
                     el = BTree.this.root;
-                }
-                else{
+                } else {
                     el = nextnextEl;
                     BTree.this.insertBlock(el, divideInfo.wert(), divideInfo.el());
                 }
@@ -113,62 +113,60 @@ public class BTree<T> {
     public BTree<T> remove(T value) {
         onEvent.accept(new RemovalEvent<T>(value));
         Block<T> el = BTree.this.root;
-            Returninformation info = BTree.this.searchBlock(BTree.this.root, value);
-            el = info.el();
-            if(!info.succes())System.out.println("Element does not exist");
-            if(!el.children()[info.index()].empty()){
-                Block<T> nextEl = searchNext(el,info.index);
-            }
-            return this;
+        Returninformation info = BTree.this.searchBlock(BTree.this.root, value);
+        el = info.el();
+        if (!info.succes()) System.out.println("Element does not exist");
+        if (!el.children()[info.index()].empty()) {
+            Block<T> nextEl = searchNext(el, info.index);
+        }
+        return this;
         onEvent.accept(new StateEvent<T>(values()));
         return this;
     }
 
-    public Returninformation searchBlock(Block<T> el, T value){
+    public Returninformation searchBlock(Block<T> el, T value) {
         int index = 1;
         Block<T> nextEl = el.children()[el.children().length];
-        while(index < el.full() && comparator.compare(el.values()[index], value) <= 0){
+        while (index < el.full() && comparator.compare(el.values()[index], value) <= 0) {
             index = index + 1;
         }
-        if(comparator.compare(el.values()[index], value) == 0) return new Returninformation(true, index, el);
-        else if(comparator.compare(el.values()[index], value) > 0){
-            if(el.children()[index].empty())return new Returninformation(false, index, el);
+        if (comparator.compare(el.values()[index], value) == 0)
+            return new Returninformation(true, index, el);
+        else if (comparator.compare(el.values()[index], value) > 0) {
+            if (el.children()[index].empty()) return new Returninformation(false, index, el);
             else nextEl = el.children()[index];
-        } 
-        else if(index > el.full())nextEl = el.children()[el.children().length];
+        } else if (index > el.full()) nextEl = el.children()[el.children().length];
         return searchBlock(nextEl, value);
     }
 
-    public void insertBlock(Block<T> el, T value, Block<T> tree){
+    public void insertBlock(Block<T> el, T value, Block<T> tree) {
         int i = el.full();
-        while(i >= 1 && comparator.compare(el.values()[i], value) > 0){
-            el.values()[i] = el.values()[i-1];
-            el.children()[i] = el.children()[i-1];
+        while (i >= 1 && comparator.compare(el.values()[i], value) > 0) {
+            el.values()[i] = el.values()[i - 1];
+            el.children()[i] = el.children()[i - 1];
         }
     }
 
-    public DivideBlockInfo divideBlock(Block<T> el){
+    public DivideBlockInfo divideBlock(Block<T> el) {
         Block<T> nextEl = new TreeBlock();
-        for(int i = 0; i < this.m; i++){
-            nextEl.values()[i] = el.values()[this.m+1+i];
-            nextEl.children()[i] = el.children()[this.m+1+i];
+        for (int i = 0; i < this.m; i++) {
+            nextEl.values()[i] = el.values()[this.m + 1 + i];
+            nextEl.children()[i] = el.children()[this.m + 1 + i];
         }
-        nextEl.children()[this.m+1] = el.children()[2*this.m+2];
+        nextEl.children()[this.m + 1] = el.children()[2 * this.m + 2];
         el.setFull(m);
         nextEl.setFull(m);
-        return new DivideBlockInfo(el.values()[m+1], nextEl);
+        return new DivideBlockInfo(el.values()[m + 1], nextEl);
     }
-
-    
 
     /****************************
      *       Block Interface     *
      ****************************/
 
     private static interface Block<T> {
-        T [] values();
+        T[] values();
 
-        Block<T> [] children();
+        Block<T>[] children();
 
         int full();
 
@@ -185,75 +183,72 @@ public class BTree<T> {
         Optional<Integer> depth(T t);
     }
 
-
     /**********************
      * Return information *
      **********************/
 
-     private class Returninformation{
-         private Boolean success;
-         private int index;
-         private Block<T> el;
+    private class Returninformation {
+        private Boolean success;
+        private int index;
+        private Block<T> el;
 
-         public Returninformation(Boolean success, int index, Block<T> el){
-             this.success = success;
-             this.index = index;
-             this.el = el;
-         }
+        public Returninformation(Boolean success, int index, Block<T> el) {
+            this.success = success;
+            this.index = index;
+            this.el = el;
+        }
 
-         public Boolean succes(){
-             return this.success;
-         }
+        public Boolean succes() {
+            return this.success;
+        }
 
-         public int index(){
-             return this.index;
-         }
+        public int index() {
+            return this.index;
+        }
 
-         public Block<T> el(){
-             return this.el;
-         }
-
-     }
-
-     private class DivideBlockInfo{
-         private T wert;
-         private Block<T> el;
-
-         public DivideBlockInfo(T wert, Block<T> el){
-             this.wert = wert;
-             this.el = el;
-         }
-
-         public T wert(){
-             return this.wert;
-         }
-
-         public Block<T> el(){
-             return this.el;
-         }
-
-         public void setEl(Block<T> t){
-             this.el = t;
-         }
+        public Block<T> el() {
+            return this.el;
+        }
     }
 
-    private class TreeBlock implements Block<T>{
+    private class DivideBlockInfo {
+        private T wert;
+        private Block<T> el;
+
+        public DivideBlockInfo(T wert, Block<T> el) {
+            this.wert = wert;
+            this.el = el;
+        }
+
+        public T wert() {
+            return this.wert;
+        }
+
+        public Block<T> el() {
+            return this.el;
+        }
+
+        public void setEl(Block<T> t) {
+            this.el = t;
+        }
+    }
+
+    private class TreeBlock implements Block<T> {
         private T[] values;
         private Block<T>[] children;
         private int full = 0;
         private Block<T> parent;
-
 
         @Override
         public T[] values() {
             return this.values;
         }
 
-        public void setParent(Block<T> p){
+        public void setParent(Block<T> p) {
             this.parent = p;
         }
 
-        public Block<T> parent(){
+        public Block<T> parent() {
             return this.parent;
         }
 
@@ -265,8 +260,8 @@ public class BTree<T> {
         @Override
         public int full() {
             int check = 0;
-            for(int i = 0; i < values.length; i++){
-                if(values[i] != null) check++;
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] != null) check++;
             }
             full = check;
             return full;
@@ -274,14 +269,12 @@ public class BTree<T> {
 
         @Override
         public boolean empty() {
-            if(this.full() == 0) return true;
+            if (this.full() == 0) return true;
             else return false;
         }
 
         @Override
-        public Block<T> remove(T value) {
-            
-        }
+        public Block<T> remove(T value) {}
 
         @Override
         public Optional<? extends Block<T>> find(T t) {
@@ -298,7 +291,6 @@ public class BTree<T> {
         @Override
         public void setFull(int n) {
             this.full = n;
-            
         }
     }
 
