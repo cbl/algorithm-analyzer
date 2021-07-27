@@ -88,31 +88,31 @@ public class Interpolation implements Algorithm<Event, Interpolation.Data> {
                                     "Element was found at index " + (estimate)));
                     break;
                 } else if (c.compare(arr[estimate], searched) > 0) {
-                    right = estimate - 1;
                     events.accept(
                             new PartialStateEvent(
                                     arr.clone(),
                                     c.getComparisonsSnapshot(),
                                     left,
-                                    (right - (estimate + 1)),
+                                    right,
                                     estimate,
                                     "Element is smaller than the estimated value: "
                                             + arr[estimate]
                                             + ". The new right index is: "
                                             + right));
+                                            right = estimate - 1;
                 } else if (c.compare(arr[estimate], searched) < 0) {
-                    left = estimate + 1;
                     events.accept(
                             new PartialStateEvent(
                                     arr.clone(),
                                     c.getComparisonsSnapshot(),
-                                    (left - (estimate + 1)),
+                                    left,
                                     right,
                                     estimate,
                                     "Element is bigger than the estimated value: "
                                             + arr[estimate]
                                             + ". The new left index is: "
                                             + left));
+                                            left = estimate + 1;
                 }
             }
         }
