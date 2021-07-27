@@ -397,8 +397,8 @@ public class Main {
     }
 
     public static void interpolation() {
-        Integer search = 33;
-        final Integer[] array = {10, 12, 14, 17, 19, 22, 25, 27, 29, 31, 32, 33, 38, 46};
+        Integer search = 9;
+        final Integer[] array = {1, 9, 13, 16, 18, 19, 20, 22, 23};
 
         final Algorithm<Event, Interpolation.Data> a = new Interpolation();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
