@@ -237,23 +237,24 @@ public class Main {
 
         ec.visitEvents(new LogEventVisitor());
     }
+
     public static void prim() {
         Collection<Edge<Character, Integer>> edges =
-                        Set.of(
-                                Edge.of('1', '2', 4),
-                                Edge.of('1', '4', 1),
-                                Edge.of('1', '5', 8),
-                                Edge.of('1', '8', 5),
-                                Edge.of('2', '5', 3),
-                                Edge.of('2', '6', 1),
-                                Edge.of('3', '5', 8),
-                                Edge.of('3', '8', 1),
-                                Edge.of('3', '6', 9),
-                                Edge.of('4', '5', 6),
-                                Edge.of('5', '6', 2),
-                                Edge.of('6', '7', 3),
-                                Edge.of('6', '8', 6),
-                                Edge.of('7', '8', 4));
+                Set.of(
+                        Edge.of('1', '2', 4),
+                        Edge.of('1', '4', 1),
+                        Edge.of('1', '5', 8),
+                        Edge.of('1', '8', 5),
+                        Edge.of('2', '5', 3),
+                        Edge.of('2', '6', 1),
+                        Edge.of('3', '5', 8),
+                        Edge.of('3', '8', 1),
+                        Edge.of('3', '6', 9),
+                        Edge.of('4', '5', 6),
+                        Edge.of('5', '6', 2),
+                        Edge.of('6', '7', 3),
+                        Edge.of('6', '8', 6),
+                        Edge.of('7', '8', 4));
         Graph<Character, Integer> costs = new LinkedGraph<>(edges);
         for (Edge<Character, Integer> e : edges) {
             costs.setEdge(e.to(), e.from(), e.weight());
@@ -262,7 +263,7 @@ public class Main {
         final Algorithm<Event, Prim.Data<Character>> a = new Prim<>();
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
-        a.run(ec, new Prim.Data<Character>(costs, '7')); //In this example the start point is 7
+        a.run(ec, new Prim.Data<Character>(costs, '7')); // In this example the start point is 7
 
         ec.visitEvents(new LogEventVisitor());
     }
