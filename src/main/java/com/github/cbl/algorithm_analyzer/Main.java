@@ -19,6 +19,7 @@ import com.github.cbl.algorithm_analyzer.hashing.DoubleHashTable;
 import com.github.cbl.algorithm_analyzer.sorts.bubblesort.BubbleSort;
 import com.github.cbl.algorithm_analyzer.sorts.countingsort.Countingsort;
 import com.github.cbl.algorithm_analyzer.sorts.heapsort.HeapSort;
+import com.github.cbl.algorithm_analyzer.sorts.insertionsort.InsertionSort;
 import com.github.cbl.algorithm_analyzer.sorts.mergesort.Mergesort;
 import com.github.cbl.algorithm_analyzer.sorts.quicksort.Quicksort;
 import com.github.cbl.algorithm_analyzer.sorts.radixsort.Radixsort;
@@ -26,18 +27,35 @@ import com.github.cbl.algorithm_analyzer.sorts.selectionsort.Selectionsort;
 import com.github.cbl.algorithm_analyzer.sorts.shellsort.Shellsort;
 import com.github.cbl.algorithm_analyzer.sorts.straightmergesort.StraightMergesort;
 import com.github.cbl.algorithm_analyzer.structures.BinarySearch;
+import com.github.cbl.algorithm_analyzer.structures.InsertToSortedList;
 import com.github.cbl.algorithm_analyzer.structures.Interpolation;
 import com.github.cbl.algorithm_analyzer.trees.AvlTree.AVLTree;
 import com.github.cbl.algorithm_analyzer.util.GeneralEventConsumer;
 import com.github.cbl.algorithm_analyzer.util.LogEventVisitor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Main.interpolation();
+        Main.radixSort();
+    }
+
+    public static void sortedList() {
+        final Integer[] insertValues = {21, 25, 67, 32, 26, 50, 78, 40, 52, 66};
+        final List<Integer> array = new ArrayList<>();
+
+        final Algorithm<Event, InsertToSortedList.Data<Integer>> a = new InsertToSortedList<>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        for (Integer value : insertValues) {
+            a.run(ec, new InsertToSortedList.Data<Integer>(array, value));
+        }
+
+        ec.visitEvents(new LogEventVisitor());
     }
 
     public static void closedHashTable() {
@@ -236,6 +254,17 @@ public class Main {
         final EventConsumer<Event> ec = new GeneralEventConsumer();
 
         a.run(ec, new Deepsearch.Data(graph, nodeNames));
+
+        ec.visitEvents(new LogEventVisitor());
+    }
+
+    public static void insertionSort() {
+        final Integer[] array = {15, 48, 22, 34, 27, 35, 14};
+
+        final Algorithm<Event, InsertionSort.Data<Integer>> a = new InsertionSort<Integer>();
+        final EventConsumer<Event> ec = new GeneralEventConsumer();
+
+        a.run(ec, new InsertionSort.Data<>(array));
 
         ec.visitEvents(new LogEventVisitor());
     }
