@@ -28,7 +28,13 @@ public class FloydWarshall<V> implements Algorithm<Event, FloydWarshall.Data<V>>
                 // convert distances graph to (string)[][] in order to print as table
                 var vn = distances.getVerticeCount();
                 var vs =
-                        StreamSupport.stream(distances.getVertices().stream().sorted().toList().spliterator(), false).toList();
+                        StreamSupport.stream(
+                                        distances.getVertices().stream()
+                                                .sorted()
+                                                .toList()
+                                                .spliterator(),
+                                        false)
+                                .toList();
                 String[][] ss = new String[vn + 1][vn + 1];
                 ss[0][0] = "";
                 for (int i = 0; i < vn; i++) {
